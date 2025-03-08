@@ -1,7 +1,10 @@
 package com.is216.CoffeeShopManagement.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -17,5 +20,10 @@ public class StorageController {
     @PostMapping("/storages")
     Storage createStorage(@RequestBody StorageCreationRequest request) {
         return storageService.createStorage(request);
+    }
+
+    @GetMapping
+    List<Storage> getStorage(){
+        return storageService.getStorage();
     }
 }
