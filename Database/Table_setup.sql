@@ -53,6 +53,8 @@ CREATE TABLE `storage` (
     manufacturer VARCHAR(100) NOT NULL,
     quantity INT NOT NULL
 );
+ALTER TABLE `storage` MODIFY COLUMN dateReceived VARCHAR(255);
+ALTER TABLE `storage` MODIFY COLUMN id INT NOT NULL AUTO_INCREMENT; 
 
 CREATE TABLE `invoice` (
     id INT NOT NULL PRIMARY KEY,
