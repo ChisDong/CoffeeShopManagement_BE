@@ -26,16 +26,6 @@ public class StorageService {
         return storageRepository.save(storage);
     }
 
-    public Storage updateStorage(int storageId, StorageUpdateRequest request) {
-        Storage storage = getStorage(storageId);
-
-        storage.setDateReceived(request.getDateReceived());
-        storage.setManufacturer(request.getManufacturer()); 
-        storage.setQuantity(request.getQuantity());
-
-        return storageRepository.save(storage);
-    }
-
     public List<Storage> getStorage() {
         return storageRepository.findAll();
     }
@@ -43,4 +33,21 @@ public class StorageService {
     public Storage getStorage(int id) {
         return storageRepository.findById(id).orElseThrow(() -> new RuntimeException("Storage not found"));
     }
+
+    public Storage updateStorage(int storageId,
+                                 StorageUpdateRequest request) {
+        Storage storage = getStorage(storageId);
+
+        storage.setName(request.getName());
+        storage.setDateReceived(request.getDateReceived());
+        storage.setManufacturer(request.getManufacturer());
+        storage.setQuantity(request.getQuantity());
+
+        return storageRepository.save(storage);
+    }
+
+    public void deleteStorage(int storageId) {
+        storageRepository.deleteById(storageId);
+    }
+
 }
