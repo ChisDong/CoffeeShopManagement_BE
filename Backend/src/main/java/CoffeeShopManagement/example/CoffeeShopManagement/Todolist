@@ -1,4 +1,0 @@
-10/3/2025
-vướng phần tìm kiếm theo tên chưa chạy được.
-phần datereceived tui lỡ tạo thêm dateReceived ní xem sửa lại nha.
-trong sql thì tui đổi thuộc tính dateReceived thành varchar(255) được thì ní đổi lại thành date.

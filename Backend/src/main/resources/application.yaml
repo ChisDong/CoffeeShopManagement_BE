@@ -1,9 +1,16 @@
+# spring.application.name=CoffeeShopManagement
+
 server:
   port: 8080
-  servlet:
-    context-path: /is216
+
 spring:
   datasource:
-    url: "jdbc:mysql://localhost:3306/is216"
+    url: jdbc:mysql://localhost:3306/is216
     username: root
-    password: root
+    password: Password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true

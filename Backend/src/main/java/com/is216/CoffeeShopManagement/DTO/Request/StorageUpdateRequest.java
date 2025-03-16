@@ -1,18 +1,15 @@
-package CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request;
-
-import jakarta.persistence.Column;
+package com.is216.CoffeeShopManagement.DTO.Request;
 
 import java.time.LocalDate;
 
-public class StorageCreationRequest {
+public class StorageUpdateRequest {
+    
     private String name;
-    @Column(name = "dateReceived")
-    private String dateReceived;
-    @Column(name = "manufacturer")
+    private LocalDate dateReceived;
     private String manufacturer;
-    @Column(name = "quantity")
     private int quantity;
 
+    // Getter & Setter
     public String getName() {
         return name;
     }
@@ -21,11 +18,11 @@ public class StorageCreationRequest {
         this.name = name;
     }
 
-    public String getDateReceived() {
+    public LocalDate getDateReceived(){
         return dateReceived;
     }
-
-    public void setDateReceived(String dateReceived) {
+    
+    public void setDateReceived(LocalDate dateReceived) {
         this.dateReceived = dateReceived;
     }
 

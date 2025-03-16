@@ -1,27 +1,21 @@
-package CoffeeShopManagement.example.CoffeeShopManagement.Entity;
+package com.is216.CoffeeShopManagement.Entity;
+
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Id;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+
 import java.time.LocalDate;
-import org.hibernate.internal.build.AllowNonPortable;
 
 @Entity
-@Table(name = "storage")
 public class Storage {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
-    @Column(name = "name")
     private String name;
-    @Column(name = "dateReceived")
-    private String dateReceived;
-    @Column(name = "manufacturer")
+    private LocalDate dateReceived;
     private String manufacturer;
-    @Column(name = "quantity")
     private int quantity;
 
     // Getter & Setter
@@ -41,11 +35,11 @@ public class Storage {
         this.name = name;
     }
 
-    public String getDateReceived() {
+    public LocalDate getDateReceived(){
         return dateReceived;
     }
-
-    public void setDateReceived(String dateReceived) {
+    
+    public void setDateReceived(LocalDate dateReceived) {
         this.dateReceived = dateReceived;
     }
 
