@@ -1,76 +1,61 @@
-CREATE DATABASE IF NOT EXISTS is216;
-USE is216;
-
-CREATE TABLE `customer` (
-	id INT NOT NULL PRIMARY KEY,
-	`first name` VARCHAR(50),
-    `last name` VARCHAR(50),
-    username VARCHAR(50) NOT NULL UNIQUE,
-    userpassword VARCHAR(50) NOT NULL
+-- KHÁCH HÀNG
+CREATE TABLE khachhang (
+    MAKH VARCHAR(100) PRIMARY KEY,
+    TENKH VARCHAR(100),
+    SODIENTHOAI VARCHAR(100)
 );
 
-CREATE TABLE `employees` (
-	id INT NOT NULL PRIMARY KEY,
-    `first name` VARCHAR(50),
-    `last name` VARCHAR(50),
-    `citizen identification` CHAR(12) NOT NULL, 
-    `date of birth` DATE NOT NULL,
-    position VARCHAR(50) NOT NULL
+-- NHÂN VIÊN
+CREATE TABLE nhanvien (
+    MANV VARCHAR(100) PRIMARY KEY,
+    MATKHAU VARCHAR(100),
+    HOTENNV VARCHAR(100),
+    EMAIL VARCHAR(100),
+    SOCCCD VARCHAR(100),
+    VITRILAM VARCHAR(100)
 );
 
-CREATE TABLE `revenue` (
-	id INT NOT NULL PRIMARY KEY,
-    `revenue date` DATE,
-    profit DECIMAL(10,2)
+-- ĐỒ UỐNG
+CREATE TABLE douong (
+    MADOUONG VARCHAR(100) PRIMARY KEY,
+    TENDOUONG VARCHAR(100),
+    LOAIDOUONG VARCHAR(100),
+    GIADOUONG DECIMAL(10,2),
+    TRANGTHAI BOOLEAN
 );
 
-CREATE TABLE `work schedule` (
-	`schedule date` DATE,
-    `work shift` INT,
-    `employee id` INT,
-    
-    FOREIGN KEY (`employee id`) REFERENCES employees(id)
+-- LỊCH LÀM VIỆC (một mã lịch có thể có nhiều khung giờ)
+CREATE TABLE lichlamviec ( 
+    MALLV VARCHAR(100),
+    MANV VARCHAR(100),
+    NGAYBATDAU DATETIME,
+    NGAYKETTHUC DATETIME,
+    THOIGIANBATDAU TIME,
+    THOIGIANKETHUC TIME,
+    PRIMARY KEY (MALLV, THOIGIANBATDAU, THOIGIANKETHUC),
+    FOREIGN KEY (MANV) REFERENCES NHANVIEN(MANV)
 );
 
-CREATE TABLE product (
-    id INT NOT NULL PRIMARY KEY,
-    `name` VARCHAR(100) NOT NULL,
-    price DECIMAL(10,2) NOT NULL,
-    `description` TEXT,
-    category VARCHAR(50)
+
+-- HÓA ĐƠN
+CREATE TABLE hoadon (
+    MAHD VARCHAR(100) PRIMARY KEY,
+    MAKH VARCHAR(100),
+    MANV VARCHAR(100),
+    NGAYMUA DATETIME,
+    TONGTIEN DECIMAL(10,2),
+    FOREIGN KEY (MAKH) REFERENCES KHACHHANG(MAKH),
+    FOREIGN KEY (MANV) REFERENCES NHANVIEN(MANV),
 );
 
-CREATE TABLE `promotional program` (
-    id INT NOT NULL PRIMARY KEY,
-    coupon VARCHAR(50) NOT NULL,
-    `description` TEXT
-);
-
-CREATE TABLE `storage` (
-    id INT NOT NULL PRIMARY KEY,
-    `name` VARCHAR(100) NOT NULL,
-    `dateReceived` DATE NOT NULL,
-    manufacturer VARCHAR(100) NOT NULL,
-    quantity INT NOT NULL
-);
-ALTER TABLE `storage` MODIFY COLUMN dateReceived VARCHAR(255);
-ALTER TABLE `storage` MODIFY COLUMN id INT NOT NULL AUTO_INCREMENT; 
-
-CREATE TABLE `invoice` (
-    id INT NOT NULL PRIMARY KEY,
-    `product id` INT NOT NULL,
-    `invoice date` DATE NOT NULL,
-    FOREIGN KEY (`product id`) REFERENCES product(id)
-);
-
-CREATE TABLE `invoice detail` (
-    id INT NOT NULL,
-    `product id` INT NOT NULL,
-    ice FLOAT,
-    sugar FLOAT,
-    toping VARCHAR(100),
-    quantity INT NOT NULL,
-    PRIMARY KEY (id, `product id`),
-    FOREIGN KEY (id) REFERENCES invoice(id),
-    FOREIGN KEY (`product id`) REFERENCES product(id)
+-- CHI TIẾT HÓA ĐƠN
+CREATE TABLE chitiethoadon (
+    MAHD VARCHAR(100),
+    MADOUONG VARCHAR(100),
+    SOLUONG INT,
+    DONGIA DECIMAL(10,2),
+    THANHTIEN DECIMAL(10,2)
+    PRIMARY KEY (MAHD, MADOUONG),
+    FOREIGN KEY (MAHD) REFERENCES HOADON(MAHD),
+    FOREIGN KEY (MADOUONG) REFERENCES DOUONG(MADOUONG)
 );
