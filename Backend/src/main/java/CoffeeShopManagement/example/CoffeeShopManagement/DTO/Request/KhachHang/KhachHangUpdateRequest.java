@@ -1,11 +1,10 @@
-package CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request;
+package CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.KhachHang;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 
-public class KhachHangFindRequest {
-
+public class KhachHangUpdateRequest {
     @Id
     @Column(name = "MAKH")
     @JsonProperty("makh")
@@ -19,21 +18,6 @@ public class KhachHangFindRequest {
     @JsonProperty("matkhau")
     @Column(name = "MATKHAU")
     private String matKhau;
-    @JsonProperty("sdt")
-    @Column(name = "SDT")
-    private String std;
-
-    public void setStd(String std) {
-        this.std = std;
-    }
-
-    public String getTenKH() {
-        return tenKH;
-    }
-
-    public String getStd() {
-        return std;
-    }
 
     public void setMaKh(String maKh) {
         this.maKh = maKh;
@@ -55,7 +39,7 @@ public class KhachHangFindRequest {
         return maKh;
     }
 
-    public String getTenKh() {
+    public String getTenKH() {
         return tenKH;
     }
 

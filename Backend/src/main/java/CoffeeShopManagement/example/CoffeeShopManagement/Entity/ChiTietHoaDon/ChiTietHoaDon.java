@@ -1,16 +1,15 @@
-package CoffeeShopManagement.example.CoffeeShopManagement.Entity;
+package CoffeeShopManagement.example.CoffeeShopManagement.Entity.ChiTietHoaDon;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "chitiethoadon")
+@IdClass(ChiTietHoaDonId.class)
 public class ChiTietHoaDon {
     @Id
     @Column(name = "MAHD")
     private String maHd;
+    @Id
     @Column(name = "MADOUONG")
     private String maDoUong;
     @Column(name = "SOLUONG")

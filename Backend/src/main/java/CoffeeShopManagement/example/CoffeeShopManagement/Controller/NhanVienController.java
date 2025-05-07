@@ -1,10 +1,7 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.Controller;
 
-import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.KhachHangCreationRequest;
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.NhanVienCreationRequest;
-import CoffeeShopManagement.example.CoffeeShopManagement.Entity.KhachHang;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.NhanVien;
-import CoffeeShopManagement.example.CoffeeShopManagement.Service.KhachHangService;
 import CoffeeShopManagement.example.CoffeeShopManagement.Service.NhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

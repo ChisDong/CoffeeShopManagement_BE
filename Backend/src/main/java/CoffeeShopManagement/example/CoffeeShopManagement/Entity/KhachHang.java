@@ -12,10 +12,6 @@ public class KhachHang {
     private String maKh;
     @Column(name = "TENKH")
     private String tenKh;
-    @Column(name = "TENDANGNHAP", unique = true)
-    private String tenDangNhap;
-    @Column(name = "MATKHAU")
-    private String matKhau ;
     @Column(name = "SODIENTHOAI")
     private String sdt;
     // Getter & Setter
@@ -36,14 +32,6 @@ public class KhachHang {
         return tenKh;
     }
 
-    public String getTenDangNhap() {
-        return tenDangNhap;
-    }
-
-    public String getMatKhau() {
-        return matKhau;
-    }
-
     public void setMaKh(String maKh) {
         this.maKh = maKh;
     }
@@ -52,11 +40,5 @@ public class KhachHang {
         this.tenKh = tenKh;
     }
 
-    public void setTenDangNhap(String tenDangNhap) {
-        this.tenDangNhap = tenDangNhap;
-    }
 
-    public void setMatKhau(String matKhau) {
-        this.matKhau = matKhau;
-    }
 }

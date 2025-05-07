@@ -9,4 +9,6 @@ spring:
     username: root
     password: 123456
 
+jwt:
+  signerKey: "bfHUHsKlqkHWujMxhcqkAgQzYmrQ1atDEUQ/q751h+tZ/Q6zfl32svrxukVz787F"
 

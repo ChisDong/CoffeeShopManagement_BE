@@ -1,15 +1,13 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.Controller;
 
-import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.KhachHangCreationRequest;
-import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.KhachHangFindRequest;
-import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.KhachHangUpdateRequest;
+import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.KhachHang.KhachHangCreationRequest;
+import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.KhachHang.KhachHangFindRequest;
+import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.KhachHang.KhachHangUpdateRequest;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.KhachHang;
 import CoffeeShopManagement.example.CoffeeShopManagement.Service.KhachHangService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class KhachHangController {
