@@ -1,12 +1,12 @@
 -- KHÁCH HÀNG
-CREATE TABLE khachhang (
+create TABLE khachhang (
     MAKH VARCHAR(100) PRIMARY KEY,
     TENKH VARCHAR(100),
     SODIENTHOAI VARCHAR(100)
 );
 
 -- NHÂN VIÊN
-CREATE TABLE nhanvien (
+create TABLE nhanvien (
     MANV VARCHAR(100) PRIMARY KEY,
     MATKHAU VARCHAR(100),
     HOTENNV VARCHAR(100),
@@ -16,7 +16,7 @@ CREATE TABLE nhanvien (
 );
 
 -- ĐỒ UỐNG
-CREATE TABLE douong (
+create TABLE douong (
     MADOUONG VARCHAR(100) PRIMARY KEY,
     TENDOUONG VARCHAR(100),
     LOAIDOUONG VARCHAR(100),
@@ -25,7 +25,7 @@ CREATE TABLE douong (
 );
 
 -- LỊCH LÀM VIỆC (một mã lịch có thể có nhiều khung giờ)
-CREATE TABLE lichlamviec ( 
+create TABLE lichlamviec (
     MALLV VARCHAR(100),
     MANV VARCHAR(100),
     NGAYBATDAU DATETIME,
@@ -35,10 +35,21 @@ CREATE TABLE lichlamviec (
     PRIMARY KEY (MALLV, THOIGIANBATDAU, THOIGIANKETHUC),
     FOREIGN KEY (MANV) REFERENCES NHANVIEN(MANV)
 );
-
+//chỉ cần tạo một khoá ngoại tổng hợp
+create TABLE dangky (
+    MALLV VARCHAR(100),
+    MANV VARCHAR(100),
+    THOIGIANBATDAU TIME,
+    THOIGIANKETTHUC TIME,
+    PRIMARY KEY (MALLV, MANV, THOIGIANBATDAU, THOIGIANKETTHUC),
+    FOREIGN KEY (MALLV, THOIGIANBATDAU, THOIGIANKETTHUC)
+        REFERENCES lichlamviec(MALLV, THOIGIANBATDAU, THOIGIANKETHUC),
+    FOREIGN KEY (MANV) REFERENCES nhanvien(MANV)
+);
+select * from lichlamviec;
 
 -- HÓA ĐƠN
-CREATE TABLE hoadon (
+create TABLE hoadon (
     MAHD VARCHAR(100) PRIMARY KEY,
     MAKH VARCHAR(100),
     MANV VARCHAR(100),
@@ -49,7 +60,7 @@ CREATE TABLE hoadon (
 );
 
 -- CHI TIẾT HÓA ĐƠN
-CREATE TABLE chitiethoadon (
+create TABLE chitiethoadon (
     MAHD VARCHAR(100),
     MADOUONG VARCHAR(100),
     SOLUONG INT,
@@ -60,7 +71,7 @@ CREATE TABLE chitiethoadon (
     FOREIGN KEY (MADOUONG) REFERENCES DOUONG(MADOUONG)
 );
 
-INSERT INTO nhanvien (MANV, MATKHAU, HOTENNV, EMAIL, SOCCCD, VITRILAM) VALUES
+insert into nhanvien (MANV, MATKHAU, HOTENNV, EMAIL, SOCCCD, VITRILAM) values
 ('NV001', 'matkhau123', 'Nguyen Van A', 'nva@example.com', '012345678901', 'Thu ngân'),
 ('NV002', 'pass456', 'Tran Thi B', 'ttb@example.com', '012345678902', 'Pha chế'),
 ('NV003', 'abc123', 'Le Van C', 'lvc@example.com', '012345678903', 'Phục vụ'),
@@ -83,7 +94,7 @@ INSERT INTO nhanvien (MANV, MATKHAU, HOTENNV, EMAIL, SOCCCD, VITRILAM) VALUES
 ('NV020', 'qwerty1', 'Ngo Van U', 'nvu@example.com', '012345678920', 'Quản lý');
 
 
-INSERT INTO douong (MADOUONG, TENDOUONG, LOAIDOUONG, GIADOUONG, TRANGTHAI) VALUES
+insert into douong (MADOUONG, TENDOUONG, LOAIDOUONG, GIADOUONG, TRANGTHAI) values
 ('DU001', 'Trà sữa trân châu', 'Trà sữa', 35000.00, TRUE),
 ('DU002', 'Trà đào cam sả', 'Trà trái cây', 32000.00, TRUE),
 ('DU003', 'Cà phê sữa đá', 'Cà phê', 25000.00, TRUE),
@@ -105,7 +116,7 @@ INSERT INTO douong (MADOUONG, TENDOUONG, LOAIDOUONG, GIADOUONG, TRANGTHAI) VALUE
 ('DU019', 'Nước ép táo', 'Nước ép', 31000.00, TRUE),
 ('DU020', 'Cà phê cốt dừa', 'Cà phê', 37000.00, TRUE);
 
-INSERT INTO khachhang (MAKH, TENKH, SODIENTHOAI) VALUES
+insert into khachhang (MAKH, TENKH, SODIENTHOAI) values
 ('KH001', 'Nguyễn Văn An', '0939009135'),
 ('KH002', 'Trần Thị Bình', '0970490775'),
 ('KH003', 'Lê Hoàng Cường', '0979239597'),
@@ -207,7 +218,7 @@ INSERT INTO khachhang (MAKH, TENKH, SODIENTHOAI) VALUES
 ('KH099', 'Phạm Đức Huy', '0929137153'),
 ('KH100', 'Hoàng Thị Thủy', '0939387731');
 
-INSERT INTO hoadon (MAHD, MAKH, MANV, NGAYMUA, TONGTIEN) VALUES
+insert into hoadon (MAHD, MAKH, MANV, NGAYMUA, TONGTIEN) values
 ('HD001', 'KH038', 'NV010', '2024-01-23 04:47:59', 441583.4),
 ('HD002', 'KH019', 'NV017', '2024-11-15 17:14:17', 273662.33),
 ('HD003', 'KH098', 'NV013', '2024-01-01 01:46:31', 469532.34),
@@ -311,7 +322,7 @@ INSERT INTO hoadon (MAHD, MAKH, MANV, NGAYMUA, TONGTIEN) VALUES
 
 
 
-INSERT INTO chitiethoadon (MAHD, MADOUONG, SOLUONG, DONGIA, THANHTIEN) VALUES
+insert into chitiethoadon (MAHD, MADOUONG, SOLUONG, DONGIA, THANHTIEN) values
 ('HD099', 'DU009', 5, 41375.66, 206878.3),
 ('HD011', 'DU017', 2, 42854.56, 85709.12),
 ('HD015', 'DU010', 4, 79088.09, 316352.36),

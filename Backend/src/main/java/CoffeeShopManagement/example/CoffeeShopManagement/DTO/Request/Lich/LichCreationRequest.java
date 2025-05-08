@@ -1,27 +1,23 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.Lich;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
 public class LichCreationRequest {
-    @Id
-    @Column(name = "MALLV")
-    private String maLlm;
-    @Column(name = "MANV")
+    private String maLlv;
     private String maNv;
-    @Column(name = "NGAYBATDAU")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date ngayBD;
-    @Column(name = "NGAYKETTHUC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date ngayKT;
-    @Column(name = "THOIGIANBATDAU")
     private String thoiGianBD;
-    @Column(name = "THOIGIANKETTHUC")
     private String thoiGianKT;
+    private Integer soLuong;
 
-    public String getMaLlm() {
-        return maLlm;
+    public String getMaLlv() {
+        return maLlv;
     }
 
     public String getMaNv() {
@@ -44,8 +40,12 @@ public class LichCreationRequest {
         return thoiGianKT;
     }
 
-    public void setMaLlm(String maLlm) {
-        this.maLlm = maLlm;
+    public Integer getSoLuong() {
+        return soLuong;
+    }
+
+    public void setMaLlv(String maLlv) {
+        this.maLlv = maLlv;
     }
 
     public void setMaNv(String maNv) {
@@ -66,5 +66,9 @@ public class LichCreationRequest {
 
     public void setThoiGianKT(String thoiGianKT) {
         this.thoiGianKT = thoiGianKT;
+    }
+
+    public void setSoLuong(Integer soLuong) {
+        this.soLuong = soLuong;
     }
 }

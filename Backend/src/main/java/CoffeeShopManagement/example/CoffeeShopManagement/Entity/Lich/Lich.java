@@ -1,31 +1,39 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
 @Table (name = "lichlamviec")
 public class Lich {
-    @Id
-    @Column(name = "MALLV")
-    private String maLlm;
-    @Column(name = "MANV")
+    @EmbeddedId
+    private LichId id;
+    @Column(name = "NVTAOLICH")
     private String maNv;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "NGAYBATDAU")
     private Date ngayBD;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "NGAYKETTHUC")
     private Date ngayKT;
-    @Column(name = "THOIGIANBATDAU")
-    private String thoiGianBD;
-    @Column(name = "THOIGIANKETTHUC")
-    private String thoiGianKT;
+    @Column(name = "SOLUONG")
+    private Integer soLuong;
 
-    public String getMaLlm() {
-        return maLlm;
+    public Lich(){}
+
+    public Integer getSoLuong() {
+        return soLuong;
+    }
+
+    public LichId getId() {
+        return id;
+    }
+
+    public void setId(LichId id) {
+        this.id = id;
     }
 
     public String getMaNv() {
@@ -40,18 +48,6 @@ public class Lich {
         return ngayKT;
     }
 
-    public String getThoiGianBD() {
-        return thoiGianBD;
-    }
-
-    public String getThoiGianKT() {
-        return thoiGianKT;
-    }
-
-    public void setMaLlm(String maLlm) {
-        this.maLlm = maLlm;
-    }
-
     public void setMaNv(String maNv) {
         this.maNv = maNv;
     }
@@ -64,11 +60,7 @@ public class Lich {
         this.ngayKT = ngayKT;
     }
 
-    public void setThoiGianBD(String thoiGianBD) {
-        this.thoiGianBD = thoiGianBD;
-    }
-
-    public void setThoiGianKT(String thoiGianKT) {
-        this.thoiGianKT = thoiGianKT;
+    public void setSoLuong(Integer soLuong) {
+        this.soLuong = soLuong;
     }
 }
