@@ -1,66 +1,39 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table (name = "lichlamviec")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Lich {
-    @EmbeddedId
-    private LichId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String id;
+
     @Column(name = "NVTAOLICH")
-    private String maNv;
+    String maNv;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "NGAYBATDAU")
-    private Date ngayBD;
+    Date ngayBD;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "NGAYKETTHUC")
-    private Date ngayKT;
+    Date ngayKT;
+    @Column(name = "THOIGIANBATDAU")
+    String thoiGianBD;
+    @Column(name = "THOIGIANKETHUC")
+    String thoiGianKT;
     @Column(name = "SOLUONG")
-    private Integer soLuong;
-
-    public Lich(){}
-
-    public Integer getSoLuong() {
-        return soLuong;
-    }
-
-    public LichId getId() {
-        return id;
-    }
-
-    public void setId(LichId id) {
-        this.id = id;
-    }
-
-    public String getMaNv() {
-        return maNv;
-    }
-
-    public Date getNgayBD() {
-        return ngayBD;
-    }
-
-    public Date getNgayKT() {
-        return ngayKT;
-    }
-
-    public void setMaNv(String maNv) {
-        this.maNv = maNv;
-    }
-
-    public void setNgayBD(Date ngayBD) {
-        this.ngayBD = ngayBD;
-    }
-
-    public void setNgayKT(Date ngayKT) {
-        this.ngayKT = ngayKT;
-    }
-
-    public void setSoLuong(Integer soLuong) {
-        this.soLuong = soLuong;
-    }
+    Integer soLuong;
 }

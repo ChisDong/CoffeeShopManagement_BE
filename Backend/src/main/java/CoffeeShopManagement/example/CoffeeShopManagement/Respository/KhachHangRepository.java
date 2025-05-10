@@ -8,6 +8,5 @@ public interface KhachHangRepository extends JpaRepository<KhachHang, String> {
     public KhachHang findByMaKh(String maKh);
     public KhachHang findBySdt(String sdt);
     public KhachHang findByTenKh(String tenKh);
-    /*public Boolean existsByTenDangNhap(String tenDangNhap);*/
 
 }
