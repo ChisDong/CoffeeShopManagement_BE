@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -68,8 +66,32 @@ public class LichService {
 
     public LichResponse updateRequest(String id, LichCreationRequest request) {
         Lich lich = lichResponsitory.findById(id).orElseThrow(() -> new AppExceptionHandler(ErrorCode.CALENDAR_NOT_EXISTED));
-        lichMapper.updateLich(request, lich);
-        return lichMapper.toLichResponse(lichResponsitory.save(lich));
+        LichResponse lichResponse = new LichResponse();
+        if(request.getNgayBD() != null){
+            lich.setNgayBD(request.getNgayBD());
+            lichResponse.setNgayBD(lich.getNgayBD());
+        }
+        if(request.getNgayKT() != null){
+            lich.setNgayKT(request.getNgayKT());
+            lichResponse.setNgayKT(lich.getNgayKT());
+        }
+        if(request.getThoiGianBD() != null){
+            lich.setThoiGianBD(request.getThoiGianBD());
+            lichResponse.setThoiGianBD(lich.getThoiGianBD());
+        }
+        if(request.getThoiGianKT() != null){
+            lich.setThoiGianKT(request.getThoiGianKT());
+            lichResponse.setThoiGianKT(lich.getThoiGianKT());
+        }
+        if(request.getSoLuong() != null){
+            lich.setSoLuong(request.getSoLuong());
+            lichResponse.setSoLuong(lich.getSoLuong());
+        }
+        if(request.getMaNv() != null){
+            lich.setMaNv(request.getMaNv());
+        }
+        lichResponsitory.save(lich);
+        return lichResponse;
     }
 
     public void deleteLich(String id ){
