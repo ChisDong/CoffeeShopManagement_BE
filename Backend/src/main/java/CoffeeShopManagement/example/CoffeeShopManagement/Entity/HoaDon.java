@@ -4,61 +4,30 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "hoadon")
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class HoaDon {
     @Id
     @Column(name = "MAHD")
-    private String maHd;
+    String maHd;
     @Column(name = "MAKH")
-    private String maKh;
+    String maKh;
     @Column(name = "MANV")
-    private String  maNv;
+    String  maNv;
     @Column(name = "NGAYMUA")
-    private Date ngayMua;
+    Date ngayMua;
     @Column(name = "TONGTIEN")
-    private Double tongTien;
-
-    public String getMaHoaDon() {
-        return maHd;
-    }
-
-    public String getMaKh() {
-        return maKh;
-    }
-
-    public String getMaNv() {
-        return maNv;
-    }
-
-    public Date getNgayMua() {
-        return ngayMua;
-    }
-
-    public Double getTongTien() {
-        return tongTien;
-    }
-
-    public void setMaHd(String maHd) {
-        this.maHd = maHd;
-    }
-
-    public void setMaKh(String maKh) {
-        this.maKh = maKh;
-    }
-
-    public void setMaNv(String maNv) {
-        this.maNv = maNv;
-    }
-
-    public void setNgayMua(Date ngayMua) {
-        this.ngayMua = ngayMua;
-    }
-
-    public void setTongTien(Double tongTien) {
-        this.tongTien = tongTien;
-    }
+    Double tongTien;
 }

@@ -55,7 +55,7 @@ public class DatHangService {
                 throw new RuntimeException("Không tìm thấy đồ uống với mã " + maDoUong);
             }
             ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
-            chiTietHoaDon.setMaHd(hoaDon.getMaHoaDon());
+            chiTietHoaDon.setMaHd(hoaDon.getMaHd());
             chiTietHoaDon.setMaDoUong(maDoUong);
             chiTietHoaDon.setSoLuong(soLuong);
             chiTietHoaDon.setDonGia(doUong.getGiaDoUong());
@@ -63,6 +63,6 @@ public class DatHangService {
             tongTien += chiTietHoaDon.getThanhTien();
             chiTietHoaDonResponsitory.save(chiTietHoaDon);
         }
-        return hoaDonService.updateHoaDon(hoaDon.getMaHoaDon(), tongTien);
+        return hoaDonService.updateHoaDon(hoaDon.getMaHd(), tongTien);
     }
 }

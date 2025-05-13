@@ -1,8 +1,5 @@
-package CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request;
+package CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,12 +10,9 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class NhanVienCreationRequest {
+public class NhanVienResponse {
     String hoTenNv;
     String email;
-    String soCccd;
-    String viTriLam;
-    String matKhau;
     String soDienThoai;
-    String role;
+    String viTriLam;
 }

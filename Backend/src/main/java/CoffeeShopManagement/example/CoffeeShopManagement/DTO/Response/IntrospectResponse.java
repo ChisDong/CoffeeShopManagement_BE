@@ -1,5 +1,5 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response;
-
+//response trả về token còn hiệu lực hay không
 public class IntrospectResponse {
     Boolean valid;
 
