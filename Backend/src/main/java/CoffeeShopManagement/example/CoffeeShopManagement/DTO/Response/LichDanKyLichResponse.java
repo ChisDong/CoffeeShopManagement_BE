@@ -1,6 +1,5 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,9 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class DangKyLichReponse {
-    String maLlv;
+public class LichDanKyLichResponse {
     String ngayBD;
     String ngayKT;
     String thoiGianBD;

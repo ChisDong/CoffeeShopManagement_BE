@@ -7,10 +7,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Builder
-public class NhanVienResponse {
-    String hoTenNv;
-    String email;
-    String soDienThoai;
+public class NhanVienDangKyLichResponse {
+    String maNv;
+    String tenNv;
     String viTriLam;
 }

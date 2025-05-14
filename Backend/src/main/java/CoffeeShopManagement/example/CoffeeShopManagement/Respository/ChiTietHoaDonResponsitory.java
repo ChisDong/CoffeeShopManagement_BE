@@ -4,4 +4,5 @@ import CoffeeShopManagement.example.CoffeeShopManagement.Entity.ChiTietHoaDon.Ch
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ChiTietHoaDonResponsitory extends JpaRepository<ChiTietHoaDon, String> {
+    public ChiTietHoaDon findByMaHd(String maHd);
 }

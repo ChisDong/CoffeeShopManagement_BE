@@ -2,13 +2,19 @@ package CoffeeShopManagement.example.CoffeeShopManagement.Service;
 
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.Lich.DangKyLichRequest;
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.DangKyLichReponse;
+import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.LichDanKyLichResponse;
+import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.NhanVienDangKyLichResponse;
+import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.NhanVienResponse;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich.DangKyLich;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich.DangKyLichId;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich.Lich;
+import CoffeeShopManagement.example.CoffeeShopManagement.Entity.NhanVien;
 import CoffeeShopManagement.example.CoffeeShopManagement.Exception.AppExceptionHandler;
 import CoffeeShopManagement.example.CoffeeShopManagement.Exception.ErrorCode;
 import CoffeeShopManagement.example.CoffeeShopManagement.Respository.DangKyLichRespository;
 import CoffeeShopManagement.example.CoffeeShopManagement.Respository.LichResponsitory;
+import CoffeeShopManagement.example.CoffeeShopManagement.Respository.NhanVienRespository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +24,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Builder
 @RequiredArgsConstructor
 public class DangKyLichService {
     @Autowired
     private DangKyLichRespository dangKyLichRespository;
     @Autowired
     private LichResponsitory lichResponsitory;
+    @Autowired
+    private NhanVienService nhanVienService;
+    private NhanVienRespository nhanVienRespository;
+
     // nhớ thêm exception nếu như có gì đó
     public DangKyLich createRequest(DangKyLichRequest request){
         DangKyLich dangKyLich = new DangKyLich();
@@ -35,18 +46,40 @@ public class DangKyLichService {
         }else{
             throw new AppExceptionHandler(ErrorCode.REGISTRATION_IS_FUll);
         }
-
     }
-
-    public List<DangKyLichReponse> getAllDangKyLich(String maNv){
-        List<DangKyLichReponse> dangKyLich = new ArrayList<>();
-        for(DangKyLich lich : dangKyLichRespository.findAllByMaNv(maNv)){
-            DangKyLichReponse dangKyLichReponse = new DangKyLichReponse();
-            dangKyLichReponse.setMaLlv(lich.getMaLlv());
-            dangKyLich.add(dangKyLichReponse);
+// lấy lịch đăng ký thể hiện cho nhân viên
+    public List<LichDanKyLichResponse> getAllLichDangKyLich(String maNv){
+        List<LichDanKyLichResponse> lichDangKyLichList = new ArrayList<>();
+        for(DangKyLich dangKyLich : dangKyLichRespository.findAllByMaNv(maNv)){
+            Lich lich = new Lich();
+            lich = lichResponsitory.findById(dangKyLich.getMaLlv()).orElseThrow(()-> new AppExceptionHandler(ErrorCode.CALENDAR_NOT_EXISTED));
+            LichDanKyLichResponse lichDangKyLichResponse = new LichDanKyLichResponse();
+            lichDangKyLichResponse.setNgayBD(lich.getNgayBD());
+            lichDangKyLichResponse.setNgayKT(lich.getNgayKT());
+            lichDangKyLichResponse.setThoiGianBD(lich.getThoiGianBD());
+            lichDangKyLichResponse.setThoiGianKT(lich.getThoiGianKT());
+            lichDangKyLichList.add(lichDangKyLichResponse);
         }
-        if(dangKyLich != null){
-            return dangKyLich;
+        if(lichDangKyLichList != null){
+            return lichDangKyLichList;
+        }else{
+            throw new AppExceptionHandler(ErrorCode.LIST_NOT_EXISTED);
+        }
+    }
+    //hiển thị danh sách nhân viên bao gồm mã nhân viên, họ tên
+    public List<NhanVienDangKyLichResponse> getAllNhanVienInLich(String maLlv){
+        List<NhanVienDangKyLichResponse> nhanVienDangKyLichList = new ArrayList<>();
+        for(DangKyLich lich : dangKyLichRespository.findAllByMaLlv(maLlv)){
+            NhanVienDangKyLichResponse nhanVienDangKyLichResponse = new NhanVienDangKyLichResponse();
+            NhanVien nhanVien = new NhanVien();
+            nhanVien = nhanVienRespository.findById(lich.getMaNv()).orElseThrow(()-> new AppExceptionHandler(ErrorCode.USER_NOT_EXISTED));
+            nhanVienDangKyLichResponse.setMaNv(lich.getMaNv());
+            nhanVienDangKyLichResponse.setTenNv(nhanVien.getHoTenNv());
+            nhanVienDangKyLichResponse.setViTriLam(nhanVien.getViTriLam());
+            nhanVienDangKyLichList.add(nhanVienDangKyLichResponse);
+        }
+        if(nhanVienDangKyLichList != null){
+            return nhanVienDangKyLichList;
         }else{
             throw new AppExceptionHandler(ErrorCode.LIST_NOT_EXISTED);
         }
@@ -59,4 +92,6 @@ public class DangKyLichService {
         DangKyLich dangKyLich = dangKyLichRespository.findById(id).orElseThrow(()-> new AppExceptionHandler(ErrorCode.REGISTRATION_NOT_EXISTED));
         dangKyLichRespository.delete(dangKyLich);
     }
+
+
 }

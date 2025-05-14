@@ -4,7 +4,6 @@ import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.LichRespon
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich.Lich;
 import CoffeeShopManagement.example.CoffeeShopManagement.Exception.AppExceptionHandler;
 import CoffeeShopManagement.example.CoffeeShopManagement.Exception.ErrorCode;
-import CoffeeShopManagement.example.CoffeeShopManagement.Mapper.LichMapper;
 import CoffeeShopManagement.example.CoffeeShopManagement.Respository.LichResponsitory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,6 @@ import java.util.List;
 public class LichService {
     @Autowired
     private LichResponsitory lichResponsitory;
-    @Autowired
-    private LichMapper lichMapper;
     // nhớ thêm exception nếu thêm cái gì đó
     public Lich creationRequest(LichCreationRequest request){
         Lich lich = new Lich();

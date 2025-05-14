@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface DangKyLichRespository extends JpaRepository<DangKyLich, DangKyLichId>{
     List<DangKyLich> findAllByMaNv(String maNv);
+    List<DangKyLich> findAllByMaLlv(String maLlv);
 }
