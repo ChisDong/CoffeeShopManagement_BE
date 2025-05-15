@@ -1,13 +1,18 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.Controller;
 
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.NhanVienCreationRequest;
+import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.NhanVienResponse;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.NhanVien;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich.Lich;
 import CoffeeShopManagement.example.CoffeeShopManagement.Service.LichService;
 import CoffeeShopManagement.example.CoffeeShopManagement.Service.NhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -42,17 +47,5 @@ public class NhanVienController {
     @PostMapping
     public NhanVien addNhanVien(@RequestBody NhanVienCreationRequest request) {
         return nhanVienService.createRequest(request);
-    }
-
-    // 5. Sửa thông tin nhân viên
-    @PutMapping
-    public NhanVien updateNhanVien(@RequestBody NhanVien nhanVien) {
-        return nhanVienService.update(nhanVien);
-    }
-
-    // 6. Xóa nhân viên
-    @DeleteMapping("/{maNv}")
-    public void deleteNhanVien(@PathVariable String maNv) {
-        nhanVienService.deleteNhanVien(maNv);
     }
 }

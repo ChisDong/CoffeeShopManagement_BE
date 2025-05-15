@@ -7,6 +7,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
 import java.util.List;
@@ -17,82 +22,20 @@ import CoffeeShopManagement.example.CoffeeShopManagement.Entity.ChiTietHoaDon.Ch
 
 @Entity
 @Table(name = "hoadon")
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class HoaDon {
     @Id
     @Column(name = "MAHD")
-    private String maHd;
-
-    @Column(name = "MAKH", insertable = false, updatable = false)
-    private String maKh;
+    String maHd;
+    @Column(name = "MAKH")
+    String maKh;
     @Column(name = "MANV")
-    private String  maNv;
+    String  maNv;
     @Column(name = "NGAYMUA")
-    private Date ngayMua;
+    Date ngayMua;
     @Column(name = "TONGTIEN")
-    private Double tongTien;
-
-    @ManyToOne
-    @JoinColumn(name = "MAKH")
-    private KhachHang khachHang;
-
-    @OneToMany(mappedBy = "hoaDon")
-    @JsonManagedReference
-    private List<ChiTietHoaDon> chiTietHoaDons;
-
-
-    public String getMaHoaDon() {
-        return maHd;
-    }
-
-    public String getMaKh() {
-        return maKh;
-    }
-
-    public String getMaNv() {
-        return maNv;
-    }
-
-    public Date getNgayMua() {
-        return ngayMua;
-    }
-
-    public Double getTongTien() {
-        return tongTien;
-    }
-
-    public void setMaHd(String maHd) {
-        this.maHd = maHd;
-    }
-
-    public void setMaKh(String maKh) {
-        this.maKh = maKh;
-    }
-
-    public void setMaNv(String maNv) {
-        this.maNv = maNv;
-    }
-
-    public void setNgayMua(Date ngayMua) {
-        this.ngayMua = ngayMua;
-    }
-
-    public void setTongTien(Double tongTien) {
-        this.tongTien = tongTien;
-    }
-
-    public KhachHang getKhachHang() {
-        return khachHang;
-    }
-
-    public void setKhachHang(KhachHang khachHang) {
-        this.khachHang = khachHang;
-    }
-
-    public List<ChiTietHoaDon> getChiTietHoaDons() {
-        return chiTietHoaDons;
-    }
-
-    public void setChiTietHoaDons(List<ChiTietHoaDon> chiTietHoaDons) {
-        this.chiTietHoaDons = chiTietHoaDons;
-    }
+    Double tongTien;
 }

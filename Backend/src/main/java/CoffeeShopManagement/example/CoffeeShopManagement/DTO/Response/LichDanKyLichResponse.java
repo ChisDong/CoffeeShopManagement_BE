@@ -1,17 +1,18 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class LichResponse {
+public class LichDanKyLichResponse {
     String ngayBD;
     String ngayKT;
     String thoiGianBD;
     String thoiGianKT;
-    Integer soLuong;
 }

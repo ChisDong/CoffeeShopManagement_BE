@@ -6,12 +6,11 @@ import lombok.experimental.FieldDefaults;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class LichResponse {
-    String ngayBD;
-    String ngayKT;
-    String thoiGianBD;
-    String thoiGianKT;
-    Integer soLuong;
+@Builder
+public class NhanVienResponse {
+    String hoTenNv;
+    String email;
+    String soDienThoai;
+    String viTriLam;
 }

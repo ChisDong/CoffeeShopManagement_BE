@@ -1,19 +1,21 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.Entity.ChiTietHoaDon;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
 import java.util.Objects;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ChiTietHoaDonId implements Serializable {
 
-    private String maHd;
-    private String maDoUong;
-
-    public ChiTietHoaDonId() {}
-
-    public ChiTietHoaDonId(String maHd, String maDoUong) {
-        this.maHd = maHd;
-        this.maDoUong = maDoUong;
-    }
+    String maHd;
+    String maDoUong;
 
     @Override
     public boolean equals(Object o) {

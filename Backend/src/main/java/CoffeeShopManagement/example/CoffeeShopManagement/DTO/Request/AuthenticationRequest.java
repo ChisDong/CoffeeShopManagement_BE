@@ -1,23 +1,14 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request;
 
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthenticationRequest {
    private String maNv;
    private String matKhau;
 
-    public String getMaNv() {
-        return maNv;
-    }
-
-    public String getMatKhau() {
-        return matKhau;
-    }
-
-    public void setMaNv(String maNv) {
-        this.maNv = maNv;
-    }
-
-    public void setMatKhau(String matKhau) {
-        this.matKhau = matKhau;
-    }
 }

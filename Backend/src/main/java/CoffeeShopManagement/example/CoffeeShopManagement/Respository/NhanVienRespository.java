@@ -1,5 +1,6 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.Respository;
 
+import CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich.Lich;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.NhanVien;
 import CoffeeShopManagement.example.CoffeeShopManagement.Service.KhachHangService;
 import CoffeeShopManagement.example.CoffeeShopManagement.Service.NhanVienService;

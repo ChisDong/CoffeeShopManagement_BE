@@ -1,75 +1,35 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "NHANVIEN")
 public class NhanVien {
     @Id
     @Column(name = "MANV")
-    private String maNv;
+    String maNv;
     @Column(name = "HOTENNV")
-    private String hoTenNv;
+    String hoTenNv;
     @Column(name = "EMAIL")
-    private String email;
+    String email;
     @Column(name = "SOCCCD")
-    private String soCccd;
+    String soCccd;
     @Column(name = "VITRILAM")
-    private String viTriLam;
+    String viTriLam;
     @Column(name = "MATKHAU")
-    private String matKhau;
+    String matKhau;
+    @Column(name = "SODIENTHOAI")
+    String soDienThoai;
+    @Column(name = "ROLE")
+    String role;
 
-    //Getter & Setter
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getMatKhau() {
-        return matKhau;
-    }
-
-    public String getMaNv() {
-        return maNv;
-    }
-
-    public String getHoTenNv() {
-        return hoTenNv;
-    }
-
-    public String getSoCccd() {
-        return soCccd;
-    }
-
-    public String getViTriLam() {
-        return viTriLam;
-    }
-
-    public void setMaNv(String maNv) {
-        this.maNv = maNv;
-    }
-
-    public void setHoTenNv(String hoTenNv) {
-        this.hoTenNv = hoTenNv;
-    }
-
-    public void setSoCccd(String soCccd) {
-        this.soCccd = soCccd;
-    }
-
-    public void setViTriLam(String viTriLam) {
-        this.viTriLam = viTriLam;
-    }
-
-    public void setMatKhau(String matKhau) {
-        this.matKhau = matKhau;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

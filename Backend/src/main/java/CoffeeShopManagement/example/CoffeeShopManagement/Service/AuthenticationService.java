@@ -4,12 +4,14 @@ import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.Authenticat
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.IntrospectRequest;
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.AuthenticationResponse;
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.IntrospectResponse;
+import CoffeeShopManagement.example.CoffeeShopManagement.Entity.NhanVien;
 import CoffeeShopManagement.example.CoffeeShopManagement.Respository.NhanVienRespository;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import jakarta.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,6 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-
 @Service
 public class AuthenticationService {
     private static final Logger log = LoggerFactory.getLogger(AuthenticationService.class);
@@ -45,6 +46,7 @@ public class AuthenticationService {
         var verified = signedJWT.verify(verifier); // trả ra boolean
 
         IntrospectResponse introspectResponse = new IntrospectResponse();
+        //verified valid
         introspectResponse.setValid(verified && expiredTime.after(new Date()));
         return introspectResponse;
     }
@@ -53,27 +55,30 @@ public class AuthenticationService {
     public AuthenticationResponse authenticate(AuthenticationRequest request){
         var nhanVien = nhanVienRespository.findById(request.getMaNv());
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        //match
         boolean authenticated = passwordEncoder.matches(request.getMatKhau(), nhanVien.get().getMatKhau());
         //kiểm tra xem có authenticated thành công hay không, cái này cần bổ xung
         //trong truong hop nay mac dinh la true
-        var token = generateToken(request.getMaNv());
+        var token = generateToken(request.getMaNv(), nhanVien.get().getRole());
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();
         authenticationResponse.setToken(token);
         authenticationResponse.setAuthenticated(authenticated);
         return authenticationResponse;
     }
 
-    private  String generateToken(String userId){
+    //generate token
+    private  String generateToken(String maNV, String role){
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
         // payload
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(userId)
+                .subject(maNV)
+                .claim("role", role)
                 .issuer("coffeshop.com")
                 .issueTime(new Date())
                 .expirationTime(new Date(
                         Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
                 ))
-                .claim(userId, "custom")
+                .claim(maNV, "custom")
                 .build();
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
 

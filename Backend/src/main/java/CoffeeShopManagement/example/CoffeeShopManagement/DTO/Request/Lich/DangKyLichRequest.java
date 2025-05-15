@@ -1,4 +1,4 @@
-package CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response;
+package CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.Lich;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,8 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AuthenticationResponse {
-    boolean authenticated;
-    String token; // trả về response cho người dùng
-
+public class DangKyLichRequest {
+    private String maLlv;
+    private String maNv;
 }

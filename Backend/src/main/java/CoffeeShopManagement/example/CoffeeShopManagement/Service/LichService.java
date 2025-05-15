@@ -1,4 +1,5 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.Service;
+import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.Lich.LichCreationRequest;
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.LichResponse;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich.Lich;
 import CoffeeShopManagement.example.CoffeeShopManagement.Exception.AppExceptionHandler;
@@ -17,7 +18,7 @@ public class LichService {
     @Autowired
     private LichResponsitory lichResponsitory;
     // nhớ thêm exception nếu thêm cái gì đó
-    public Lich creationRequest(Lich request){
+    public Lich creationRequest(LichCreationRequest request){
         Lich lich = new Lich();
         lich.setMaNv(request.getMaNv());
         lich.setNgayBD(request.getNgayBD());
@@ -39,7 +40,7 @@ public class LichService {
             lichResponse.setSoLuong(lich.getSoLuong());
             lichResponseList.add(lichResponse);
         }
-        if(!lichResponseList.isEmpty()){
+        if(lichResponseList != null){
             return lichResponseList;
         }else{
             throw new AppExceptionHandler(ErrorCode.CALENDAR_NOT_EXISTED);
@@ -60,7 +61,7 @@ public class LichService {
         return lichResponseList;
     }
 
-    public LichResponse updateRequest(String id, Lich request) {
+    public LichResponse updateRequest(String id, LichCreationRequest request) {
         Lich lich = lichResponsitory.findById(id).orElseThrow(() -> new AppExceptionHandler(ErrorCode.CALENDAR_NOT_EXISTED));
         LichResponse lichResponse = new LichResponse();
         if(request.getNgayBD() != null){
@@ -95,7 +96,4 @@ public class LichService {
         lichResponsitory.delete(lich);
     }
 
-    public List<Lich> findByMaNv(String maNv) {
-        return lichResponsitory.findByMaNv(maNv);
-    }
 }
