@@ -1,5 +1,8 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.Entity.ChiTietHoaDon;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import CoffeeShopManagement.example.CoffeeShopManagement.Entity.HoaDon;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,6 +21,11 @@ public class ChiTietHoaDon {
     private Double donGia;
     @Column(name = "THANHTIEN")
     private Double thanhTien;
+    @ManyToOne
+    @JoinColumn(name = "MAHD")
+    @JsonManagedReference
+    private HoaDon hoaDon;
+
     public String getMaHd() {
         return maHd;
     }

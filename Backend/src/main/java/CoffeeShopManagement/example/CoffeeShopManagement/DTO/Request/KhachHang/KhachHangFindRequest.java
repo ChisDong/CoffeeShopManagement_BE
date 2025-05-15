@@ -5,65 +5,71 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 
 public class KhachHangFindRequest {
-
+    // Mã khách hàng
     @Id
     @Column(name = "MAKH")
     @JsonProperty("makh")
     private String maKh;
+
+    // Tên khách hàng
     @JsonProperty("tenkh")
     @Column(name = "TENKH")
     private String tenKH;
+
+    // Tên đăng nhập
     @JsonProperty("tendangnhap")
     @Column(name = "TENDANGNHAP", unique = true)
     private String tenDangNhap;
+
+    // Mật khẩu
     @JsonProperty("matkhau")
     @Column(name = "MATKHAU")
     private String matKhau;
+
+    // Số điện thoại
     @JsonProperty("sdt")
     @Column(name = "SDT")
-    private String std;
+    private String sdt;
 
-    public void setStd(String std) {
-        this.std = std;
+    // Getter & Setter
+    // sdt
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
+    }
+    public String getSdt() {
+        return sdt;
     }
 
-    public String getTenKH() {
-        return tenKH;
-    }
-
-    public String getStd() {
-        return std;
-    }
-
+    // maKh
     public void setMaKh(String maKh) {
         this.maKh = maKh;
     }
-
-    public void setTenKH(String tenKH) {
-        this.tenKH = tenKH;
-    }
-
-    public void setTenDangNhap(String tenDangNhap) {
-        this.tenDangNhap = tenDangNhap;
-    }
-
-    public void setMatKhau(String matKhau) {
-        this.matKhau = matKhau;
-    }
-
     public String getMaKh() {
         return maKh;
     }
 
-    public String getTenKh() {
+    // tenKH
+    public void setTenKH(String tenKH) {
+        this.tenKH = tenKH;
+    }
+    public String getTenKH() {
         return tenKH;
     }
 
+    // tenDangNhap
+    public void setTenDangNhap(String tenDangNhap) {
+        this.tenDangNhap = tenDangNhap;
+    }
     public String getTenDangNhap() {
         return tenDangNhap;
     }
 
+    // matKhau
+    public void setMatKhau(String matKhau) {
+        this.matKhau = matKhau;
+    }  
     public String getMatKhau() {
         return matKhau;
     }
 }
+     

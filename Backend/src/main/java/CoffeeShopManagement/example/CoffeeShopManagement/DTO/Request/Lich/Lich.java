@@ -5,7 +5,7 @@ import jakarta.persistence.Id;
 
 import java.util.Date;
 
-public class LichCreationRequest {
+public class Lich {
     @Id
     @Column(name = "MALLV")
     private String maLlm;
@@ -19,6 +19,7 @@ public class LichCreationRequest {
     private String thoiGianBD;
     @Column(name = "THOIGIANKETTHUC")
     private String thoiGianKT;
+    private Integer soLuong;
 
     public String getMaLlm() {
         return maLlm;
@@ -44,6 +45,10 @@ public class LichCreationRequest {
         return thoiGianKT;
     }
 
+    public Integer getSoLuong() {
+        return soLuong;
+    }
+
     public void setMaLlm(String maLlm) {
         this.maLlm = maLlm;
     }
@@ -66,5 +71,9 @@ public class LichCreationRequest {
 
     public void setThoiGianKT(String thoiGianKT) {
         this.thoiGianKT = thoiGianKT;
+    }
+
+    public void setSoLuong(Integer soLuong) {
+        this.soLuong = soLuong;
     }
 }
