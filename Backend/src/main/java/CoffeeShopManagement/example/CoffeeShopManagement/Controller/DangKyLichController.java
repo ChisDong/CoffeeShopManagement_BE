@@ -2,6 +2,7 @@ package CoffeeShopManagement.example.CoffeeShopManagement.Controller;
 
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.Lich.DangKyLichRequest;
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.DangKyLichReponse;
+import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.NhanVienDangKyLichResponse;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich.DangKyLich;
 import CoffeeShopManagement.example.CoffeeShopManagement.Service.DangKyLichService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,7 @@ public class DangKyLichController {
     }
 
     @GetMapping("/dangkylichs")
-    List<DangKyLichReponse> findDangKyLich(@RequestBody String maNv){
-       return dangKyLichService.getAllDangKyLich(maNv);
+    List<NhanVienDangKyLichResponse> findDangKyLich(@RequestBody String maNv){
+       return dangKyLichService.getAllNhanVienInLich(maNv);
     }
-
 }
