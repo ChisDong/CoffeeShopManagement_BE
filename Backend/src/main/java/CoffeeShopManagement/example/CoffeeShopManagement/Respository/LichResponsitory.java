@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface LichResponsitory extends JpaRepository<Lich, String> {
     List<Lich> findByNgayBDBetween(String ngayBD, String NgayKT);
+    List<Lich> findByMaNv(String maNv);
 }
+

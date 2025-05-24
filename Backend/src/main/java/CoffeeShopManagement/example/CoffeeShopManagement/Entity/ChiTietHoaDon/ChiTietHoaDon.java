@@ -1,5 +1,8 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.Entity.ChiTietHoaDon;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import CoffeeShopManagement.example.CoffeeShopManagement.Entity.HoaDon;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

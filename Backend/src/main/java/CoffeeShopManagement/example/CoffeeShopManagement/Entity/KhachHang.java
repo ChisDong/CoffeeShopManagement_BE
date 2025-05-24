@@ -1,6 +1,10 @@
-package CoffeeShopManagement.example.CoffeeShopManagement.Entity;
+package CoffeeShopManagement.example.CoffeeShopManagement.Entity;import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
@@ -10,10 +14,17 @@ public class KhachHang {
     @Id
     @Column(name = "MAKH")
     private String maKh;
+
     @Column(name = "TENKH")
     private String tenKh;
+
     @Column(name = "SODIENTHOAI")
     private String sdt;
+
+    @OneToMany(mappedBy = "khachHang")
+    @JsonIgnore
+    private List<HoaDon> hoaDons;
+
     // Getter & Setter
 
     public String getSdt() {
@@ -40,5 +51,11 @@ public class KhachHang {
         this.tenKh = tenKh;
     }
 
+    public List<HoaDon> getHoaDons() {
+        return hoaDons;
+    }
 
+    public void setHoaDons(List<HoaDon> hoaDons) {
+        this.hoaDons = hoaDons;
+    }
 }
