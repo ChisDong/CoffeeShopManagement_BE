@@ -14,7 +14,9 @@ import CoffeeShopManagement.example.CoffeeShopManagement.Exception.ErrorCode;
 import CoffeeShopManagement.example.CoffeeShopManagement.Respository.DangKyLichRespository;
 import CoffeeShopManagement.example.CoffeeShopManagement.Respository.LichResponsitory;
 import CoffeeShopManagement.example.CoffeeShopManagement.Respository.NhanVienRespository;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,8 @@ import java.util.stream.Collectors;
 
 @Service
 @Builder
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class DangKyLichService {
     @Autowired
     private DangKyLichRespository dangKyLichRespository;
