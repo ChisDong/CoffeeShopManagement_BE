@@ -1,10 +1,8 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.Service;
 
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.Lich.DangKyLichRequest;
-import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.DangKyLichReponse;
-import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.LichDanKyLichResponse;
+import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.LichDaDangKyResponse;
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.NhanVienDangKyLichResponse;
-import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.NhanVienResponse;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich.DangKyLich;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich.DangKyLichId;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich.Lich;
@@ -17,13 +15,11 @@ import CoffeeShopManagement.example.CoffeeShopManagement.Respository.NhanVienRes
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Builder
@@ -51,20 +47,20 @@ public class DangKyLichService {
         }
     }
 // lấy lịch đăng ký thể hiện cho nhân viên
-    public List<LichDanKyLichResponse> getAllLichDangKyLich(String maNv){
-        List<LichDanKyLichResponse> lichDangKyLichList = new ArrayList<>();
+    public List<LichDaDangKyResponse> getAllLichDaDangKy(String maNv){
+        List<LichDaDangKyResponse> lichDaDangKyList = new ArrayList<>();
         for(DangKyLich dangKyLich : dangKyLichRespository.findAllByMaNv(maNv)){
             Lich lich = new Lich();
             lich = lichResponsitory.findById(dangKyLich.getMaLlv()).orElseThrow(()-> new AppExceptionHandler(ErrorCode.CALENDAR_NOT_EXISTED));
-            LichDanKyLichResponse lichDangKyLichResponse = new LichDanKyLichResponse();
+            LichDaDangKyResponse lichDangKyLichResponse = new LichDaDangKyResponse();
             lichDangKyLichResponse.setNgayBD(lich.getNgayBD());
             lichDangKyLichResponse.setNgayKT(lich.getNgayKT());
             lichDangKyLichResponse.setThoiGianBD(lich.getThoiGianBD());
             lichDangKyLichResponse.setThoiGianKT(lich.getThoiGianKT());
-            lichDangKyLichList.add(lichDangKyLichResponse);
+            lichDaDangKyList.add(lichDangKyLichResponse);
         }
-        if(lichDangKyLichList != null){
-            return lichDangKyLichList;
+        if(lichDaDangKyList != null){
+            return lichDaDangKyList;
         }else{
             throw new AppExceptionHandler(ErrorCode.LIST_NOT_EXISTED);
         }
@@ -96,5 +92,8 @@ public class DangKyLichService {
         dangKyLichRespository.delete(dangKyLich);
     }
 
+    public Integer getGioLam (String maNv){
+        return dangKyLichRespository.getTongGioDangKy( maNv ).intValue();
+    }
 
 }

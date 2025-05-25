@@ -2,6 +2,7 @@ package CoffeeShopManagement.example.CoffeeShopManagement.Controller;
 
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.Lich.DangKyLichRequest;
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.DangKyLichReponse;
+import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.LichDaDangKyResponse;
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.NhanVienDangKyLichResponse;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich.DangKyLich;
 import CoffeeShopManagement.example.CoffeeShopManagement.Service.DangKyLichService;
@@ -23,8 +24,18 @@ public class DangKyLichController {
         dangKyLichService.deleteRequest(request);
     }
 
-    @GetMapping("/dangkylichs")
-    List<NhanVienDangKyLichResponse> findDangKyLich(@RequestBody String maNv){
-       return dangKyLichService.getAllNhanVienInLich(maNv);
+    @GetMapping("/laynhanvientronglichs")
+    List<NhanVienDangKyLichResponse> findDangKyLich(@RequestBody String maLlv){
+       return dangKyLichService.getAllNhanVienInLich(maLlv);
+    }
+
+    @GetMapping("/laylichcuanhanviens")
+    List<LichDaDangKyResponse> findLichDaDangKyCuaNhanVien(@RequestBody String maNv){
+        return  dangKyLichService.getAllLichDaDangKy(maNv);
+    }
+
+    @GetMapping("/laytonggiolam")
+    Integer getTongGioLam(@RequestBody String maNv){
+        return dangKyLichService.getGioLam(maNv);
     }
 }

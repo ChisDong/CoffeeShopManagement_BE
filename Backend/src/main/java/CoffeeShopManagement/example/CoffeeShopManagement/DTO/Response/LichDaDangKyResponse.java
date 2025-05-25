@@ -10,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class LichDanKyLichResponse {
+public class LichDaDangKyResponse {
     String ngayBD;
     String ngayKT;
     String thoiGianBD;

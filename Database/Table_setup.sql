@@ -49,10 +49,18 @@ create TABLE dangky (
     FOREIGN KEY (MALLV) REFERENCES lichlamviec(id),
     FOREIGN KEY (MANV) REFERENCES nhanvien(MANV)
 );
+
 //không có trong db
+SELECT
+    SUM(TIMESTAMPDIFF(MINUTE,
+                      STR_TO_DATE(l.THOIGIANBATDAU, '%H:%i'),
+                      STR_TO_DATE(l.THOIGIANKETHUC, '%H:%i'))) / 60 AS tong_gio_lam
+FROM dangky dk
+JOIN lichlamviec l ON dk.maLlv = l.id
+WHERE dk.maNv = :maNv
 drop table dangky
 drop table lichlamviec
-select * from nhanvien;
+select * from lichlamviec;
 ALTER TABLE lichlamviec CHANGE COLUMN MANV NVTAOLICH VARCHAR(100)
 ALTER TABLE lichlamviec CHANGE COLUMN MALLV id VARCHAR(100)
 ALTER TABLE lichlamviec ADD COLUMN SOLUONG INT
