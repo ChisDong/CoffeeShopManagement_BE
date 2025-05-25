@@ -27,5 +27,4 @@ public class DangKyLichController {
     List<NhanVienDangKyLichResponse> findDangKyLich(@RequestBody String maNv){
        return dangKyLichService.getAllNhanVienInLich(maNv);
     }
-
 }

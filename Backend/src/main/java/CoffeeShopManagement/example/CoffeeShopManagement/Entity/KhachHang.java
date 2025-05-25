@@ -31,4 +31,5 @@ public class KhachHang {
     @OneToMany(mappedBy = "maKh")
     @JsonIgnore
     List<HoaDon> hoaDons;
+
 }
