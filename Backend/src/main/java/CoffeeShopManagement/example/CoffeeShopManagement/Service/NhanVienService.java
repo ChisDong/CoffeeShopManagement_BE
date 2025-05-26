@@ -58,29 +58,55 @@ public class NhanVienService {
 
     // tinh tổng giờ làm việc của nhân viên
     public double tinhTongGioLam(String maNv) {
+        if (maNv == null || maNv.trim().isEmpty()) {
+            throw new IllegalArgumentException("Mã nhân viên không được để trống");
+        }
+
         NhanVien nhanVien = nhanVienRespository.findByMaNv(maNv);
         if (nhanVien == null) {
             throw new RuntimeException("Không tìm thấy nhân viên với mã: " + maNv);
         }
 
         List<Lich> lichList = lichResponsitory.findByMaNv(maNv);
+        if (lichList == null || lichList.isEmpty()) {
+            return 0.0;
+        }
 
         double tongGioLam = 0;
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
         for (Lich lich : lichList) {
-            LocalDate ngayBD = LocalDate.parse(lich.getNgayBD(), dateFormatter);
-            LocalDate ngayKT = LocalDate.parse(lich.getNgayKT(), dateFormatter);
-            long soNgay = ChronoUnit.DAYS.between(ngayBD, ngayKT) + 1;
+            try {
+                LocalDate ngayBD = LocalDate.parse(lich.getNgayBD(), dateFormatter);
+                LocalDate ngayKT = LocalDate.parse(lich.getNgayKT(), dateFormatter);
+                
+                if (ngayKT.isBefore(ngayBD)) {
+                    throw new IllegalArgumentException("Ngày kết thúc không được trước ngày bắt đầu");
+                }
 
-            LocalTime gioBD = LocalTime.parse(lich.getThoiGianBD(), timeFormatter);
-            LocalTime gioKT = LocalTime.parse(lich.getThoiGianKT(), timeFormatter);
-            double soGioTrongNgay = Duration.between(gioBD, gioKT).toMinutes() / 60.0;
+                long soNgay = ChronoUnit.DAYS.between(ngayBD, ngayKT) + 1;
 
-            tongGioLam += soNgay * soGioTrongNgay;
+                LocalTime gioBD = LocalTime.parse(lich.getThoiGianBD(), timeFormatter);
+                LocalTime gioKT = LocalTime.parse(lich.getThoiGianKT(), timeFormatter);
+                
+                double soGioTrongNgay;
+                if (gioKT.isBefore(gioBD)) {
+                    // Handle overnight shifts
+                    soGioTrongNgay = (Duration.between(gioBD, LocalTime.MAX).toMinutes() + 
+                                    Duration.between(LocalTime.MIN, gioKT).toMinutes() + 1) / 60.0;
+                } else {
+                    soGioTrongNgay = Duration.between(gioBD, gioKT).toMinutes() / 60.0;
+                }
+
+                tongGioLam += soNgay * soGioTrongNgay;
+            } catch (Exception e) {
+                throw new RuntimeException("Lỗi khi xử lý lịch làm việc: " + e.getMessage());
+            }
         }
-        return tongGioLam;
+        
+        // Round to 2 decimal places
+        return Math.round(tongGioLam * 100.0) / 100.0;
     }
 
     // Cập nhật thông tin nhân viên
