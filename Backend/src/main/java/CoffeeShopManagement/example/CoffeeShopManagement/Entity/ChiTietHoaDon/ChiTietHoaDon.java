@@ -30,4 +30,6 @@ public class ChiTietHoaDon {
     Double donGia;
     @Column(name = "THANHTIEN")
     Double thanhTien;
+    @Column(name = "GHICHU")
+    String ghichu;
 }

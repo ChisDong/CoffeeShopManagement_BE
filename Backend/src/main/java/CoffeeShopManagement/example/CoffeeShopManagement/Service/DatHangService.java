@@ -47,19 +47,41 @@ public class DatHangService {
         hoaDon.setMaKh(khachHang.getMaKh());
         hoaDon = hoaDonRespository.save(hoaDon);
         double tongTien = 0;
-        for(Map.Entry<String, Integer> entry : request.getGioHang().entrySet()){
-            String maDoUong = entry.getKey();
-            Integer soLuong = entry.getValue();
+//        for(Map.Entry<String, Integer> entry : request.getGioHang().entrySet()){
+//            String maDoUong = entry.getKey();
+//            Integer soLuong = entry.getValue();
+//            DoUong doUong = doUongRespository.findByMaDoUong(maDoUong);
+//            if(doUong == null){
+//                throw new RuntimeException("Không tìm thấy đồ uống với mã " + maDoUong);
+//            }
+//            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
+//            chiTietHoaDon.setMaHd(hoaDon.getMaHd());
+//            chiTietHoaDon.setMaDoUong(maDoUong);
+//            chiTietHoaDon.setSoLuong(soLuong);
+//            chiTietHoaDon.setDonGia(doUong.getGiaDoUong());
+//            chiTietHoaDon.setThanhTien(soLuong*doUong.getGiaDoUong());
+//            chiTietHoaDon.setGhichu(request.getGhiChu());
+//            tongTien += chiTietHoaDon.getThanhTien();
+//            chiTietHoaDonResponsitory.save(chiTietHoaDon);
+//        }
+        for (ChiTietHoaDon item : request.getGiohang1()) {
+            String maDoUong = item.getMaDoUong();
+            int soLuong = item.getSoLuong();
+            String ghiChu = item.getGhichu();
+
             DoUong doUong = doUongRespository.findByMaDoUong(maDoUong);
-            if(doUong == null){
+            if (doUong == null) {
                 throw new RuntimeException("Không tìm thấy đồ uống với mã " + maDoUong);
             }
+
             ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
             chiTietHoaDon.setMaHd(hoaDon.getMaHd());
             chiTietHoaDon.setMaDoUong(maDoUong);
             chiTietHoaDon.setSoLuong(soLuong);
             chiTietHoaDon.setDonGia(doUong.getGiaDoUong());
-            chiTietHoaDon.setThanhTien(soLuong*doUong.getGiaDoUong());
+            chiTietHoaDon.setThanhTien(soLuong * doUong.getGiaDoUong());
+            chiTietHoaDon.setGhichu(ghiChu);
+
             tongTien += chiTietHoaDon.getThanhTien();
             chiTietHoaDonResponsitory.save(chiTietHoaDon);
         }

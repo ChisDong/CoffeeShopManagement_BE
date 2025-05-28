@@ -1,6 +1,7 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,6 +11,8 @@ import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.Menu.DoUong
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.DoUong;
 import CoffeeShopManagement.example.CoffeeShopManagement.Respository.DoUongRespository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class DoUongService {
@@ -52,6 +55,15 @@ public class DoUongService {
     // Xem tất cả menu
     public List<DoUong> findAll() {
         return doUongRespository.findAll();
+    }
+
+    //gợi ý tìm kiếm
+    @GetMapping("suggest")
+    public List<String> suggestDoUong(@RequestParam String search) {
+        return doUongRespository.findByTop10ByNameContainingIgnoreCase(search)
+                .stream()
+                .map(DoUong::getTenDoUong)
+                .collect(Collectors.toList());
     }
 }
 
