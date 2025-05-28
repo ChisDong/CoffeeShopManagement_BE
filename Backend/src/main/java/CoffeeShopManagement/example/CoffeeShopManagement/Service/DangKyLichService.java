@@ -32,15 +32,18 @@ public class DangKyLichService {
     private LichResponsitory lichResponsitory;
     @Autowired
     private NhanVienService nhanVienService;
+    @Autowired
     private NhanVienRespository nhanVienRespository;
 
     // nhớ thêm exception nếu như có gì đó
+
     public DangKyLich createRequest(DangKyLichRequest request){
         DangKyLich dangKyLich = new DangKyLich();
         Lich lich = lichResponsitory.findById(request.getMaLlv()).orElseThrow(()-> new AppExceptionHandler(ErrorCode.REGISTRATION_NOT_EXISTED));
-        if(lich.getSoLuong() == 0){
+        if(lich.getSoLuong() != 0){
             dangKyLich.setMaNv(request.getMaNv());
-            dangKyLich.setMaNv(request.getMaLlv());
+            dangKyLich.setMaLlv(request.getMaLlv());
+            lich.setSoLuong(lich.getSoLuong() - 1);
             return dangKyLichRespository.save(dangKyLich);
         }else{
             throw new AppExceptionHandler(ErrorCode.REGISTRATION_IS_FUll);
@@ -93,7 +96,7 @@ public class DangKyLichService {
     }
 
     public Integer getGioLam (String maNv){
-        return dangKyLichRespository.getTongGioDangKy( maNv ).intValue();
+        return dangKyLichRespository.getTongGioDangKy(maNv).intValue();
     }
 
 }

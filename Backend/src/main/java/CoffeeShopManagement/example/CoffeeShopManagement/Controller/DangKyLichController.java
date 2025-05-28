@@ -24,18 +24,20 @@ public class DangKyLichController {
         dangKyLichService.deleteRequest(request);
     }
 
-    @GetMapping("/laynhanvientronglichs")
-    List<NhanVienDangKyLichResponse> findDangKyLich(@RequestBody String maLlv){
+    @GetMapping("/laynhanvientronglichs/{maLlv}")
+    List<NhanVienDangKyLichResponse> findDangKyLich(@PathVariable String maLlv){
        return dangKyLichService.getAllNhanVienInLich(maLlv);
     }
 
-    @GetMapping("/laylichcuanhanviens")
-    List<LichDaDangKyResponse> findLichDaDangKyCuaNhanVien(@RequestBody String maNv){
+    @GetMapping("/laylichcuanhanviens/{maNv}")
+    List<LichDaDangKyResponse> findLichDaDangKyCuaNhanVien(@PathVariable String maNv){
         return  dangKyLichService.getAllLichDaDangKy(maNv);
     }
 
-    @GetMapping("/laytonggiolam")
-    Integer getTongGioLam(@RequestBody String maNv){
+    @GetMapping("/laytonggiolams/{maNv}")
+    Integer getTongGioLam(@PathVariable String maNv){
         return dangKyLichService.getGioLam(maNv);
     }
+
 }
+

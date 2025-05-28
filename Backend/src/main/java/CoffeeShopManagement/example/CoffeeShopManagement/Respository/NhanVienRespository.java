@@ -6,6 +6,9 @@ import CoffeeShopManagement.example.CoffeeShopManagement.Service.KhachHangServic
 import CoffeeShopManagement.example.CoffeeShopManagement.Service.NhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface NhanVienRespository extends JpaRepository<NhanVien, String> {
-    public NhanVien findByMaNv(String maNv);
+    NhanVien findByMaNv(String maNv);
 }

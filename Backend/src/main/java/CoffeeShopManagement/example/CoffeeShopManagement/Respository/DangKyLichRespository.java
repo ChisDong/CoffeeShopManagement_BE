@@ -7,10 +7,12 @@ import org.hibernate.annotations.SQLSelect;
 import org.mapstruct.Mapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+@Repository
 public interface DangKyLichRespository extends JpaRepository<DangKyLich, DangKyLichId> {
     List<DangKyLich> findAllByMaNv(String maNv);
 
@@ -23,6 +25,6 @@ public interface DangKyLichRespository extends JpaRepository<DangKyLich, DangKyL
        FROM dangky dk
        JOIN lichlamviec l ON dk.maLlv = l.id
        WHERE dk.maNv = :maNv """, nativeQuery = true)
-    Integer getTongGioDangKy(String maNv);
+    Integer getTongGioDangKy(@Param("maNv") String maNv);
 }
 

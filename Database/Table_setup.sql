@@ -17,7 +17,7 @@ create TABLE nhanvien (
 );
 //không có trong DB
 ALTER TABLE nhanvien ADD COLUMN ROLE ENUM('EMPLOYEE', 'ADMIN') NOT NULL
-SELECT * FROM nhanvien
+SELECT * FROM dangky;
 ALTER TABLE nhanvien CHANGE COLUMN SODIENTHOAI SODIENTHOAI VARCHAR(255)
 -- ĐỒ UỐNG
 create TABLE douong (
@@ -60,7 +60,7 @@ JOIN lichlamviec l ON dk.maLlv = l.id
 WHERE dk.maNv = :maNv
 drop table dangky
 drop table lichlamviec
-select * from lichlamviec;
+select * from nhanvien;
 ALTER TABLE lichlamviec CHANGE COLUMN MANV NVTAOLICH VARCHAR(100)
 ALTER TABLE lichlamviec CHANGE COLUMN MALLV id VARCHAR(100)
 ALTER TABLE lichlamviec ADD COLUMN SOLUONG INT
