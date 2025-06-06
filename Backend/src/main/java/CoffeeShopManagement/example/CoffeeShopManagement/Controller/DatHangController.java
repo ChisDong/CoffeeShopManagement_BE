@@ -14,6 +14,7 @@ public class DatHangController {
     @Autowired
     private DatHangService datHangService;
 
+    //chưa check để từ từ
     @PostMapping("/dathangs")
     public HoaDon datHang(@RequestBody DatHangCreationRequest request) {
         return datHangService.taoHoaDon(request);

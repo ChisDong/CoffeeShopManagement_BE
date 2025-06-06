@@ -15,14 +15,14 @@ public class LichController {
     @Autowired
     private LichService lichService;
 
-    @PostMapping("/lichs")
+    @PostMapping("/taolichs")
     Lich createLich(@RequestBody LichCreationRequest request)
     {
        return lichService.creationRequest(request);
     }
 
-    @GetMapping("/lichs/bydays")
-    List<LichResponse> getLichByDay(@RequestBody String NgayBD, @RequestBody String NgayKT)
+    @GetMapping("/laylichs/bydays/{NgayBD}/{NgayKT}")
+    List<LichResponse> getLichByDay(@PathVariable String NgayBD, @PathVariable String NgayKT)
     {
         return lichService.getLichByDay(NgayBD, NgayKT);
     }
@@ -33,13 +33,13 @@ public class LichController {
         return lichService.getAllLich();
     }
 
-    @PutMapping("/lichs")
-    LichResponse updateLich(@RequestBody String id, @RequestBody LichCreationRequest request){
+    @PutMapping("/sualichs/{id}")
+    LichResponse updateLich(@PathVariable String id, @RequestBody LichCreationRequest request){
         return lichService.updateRequest(id, request);
     }
 
-    @DeleteMapping("/lichs")
-    void deleteLich(@RequestBody String id){
+    @DeleteMapping("/xoalichs/{id}")
+    void deleteLich(@PathVariable String id){
         lichService.deleteLich(id);
     }
 

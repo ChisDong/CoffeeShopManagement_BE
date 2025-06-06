@@ -11,31 +11,35 @@ import CoffeeShopManagement.example.CoffeeShopManagement.Service.DoUongService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/menu")
+
 public class DoUongController {
     @Autowired
     private DoUongService doUongService;
 
     // Thêm đồ uống
-    @PostMapping
+    // đã xong
+    @PostMapping("/themdouongs")
     public DoUong createDoUong(@RequestBody DoUongCreationRequest request) {
         return doUongService.createRquest(request);
     }
 
     // Sửa đồ uống
-    @PutMapping
+    //đã xong
+    @PutMapping("/suadouongs")
     public DoUong updateDoUong(@RequestBody DoUongUpdateRequest request) {
         return doUongService.updateRequest(request);
     }
 
     // Xoá đồ uống
-    @DeleteMapping("/{maDoUong}")
+    //đã xong
+    @DeleteMapping("/xoadouongs/{maDoUong}")
     public void deleteDoUong(@PathVariable String maDoUong) {
         doUongService.deleteRequest(maDoUong);
     }
 
     // Xem tất cả menu
-    @GetMapping
+    //đã xong
+    @GetMapping("/menus")
     public List<DoUong> getAllDoUong() {
         return doUongService.findAll();
     }

@@ -1,49 +1,20 @@
 package CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.Menu;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class DoUongCreationRequest {
-    private String maDoUong;
-    private String tenDoUong;
-    private String loaiDoUong;
-    private Double giaDoUong;
-    private Boolean trangThai;
+     String maDoUong;
+     String tenDoUong;
+     String loaiDoUong;
+     Double giaDoUong;
+     Boolean trangThai;
 
-    public String getMaDoUong() {
-        return maDoUong;
-    }
-
-    public String getTenDoUong() {
-        return tenDoUong;
-    }
-
-    public String getLoaiDoUong() {
-        return loaiDoUong;
-    }
-
-    public Double getGiaDoUong() {
-        return giaDoUong;
-    }
-
-    public Boolean getTrangThai() {
-        return trangThai;
-    }
-
-    public void setMaDoUong(String maDoUong) {
-        this.maDoUong = maDoUong;
-    }
-
-    public void setTenDoUong(String tenDoUong) {
-        this.tenDoUong = tenDoUong;
-    }
-
-    public void setLoaiDoUong(String loaiDoUong) {
-        this.loaiDoUong = loaiDoUong;
-    }
-
-    public void setGiaDoUong(Double giaDoUong) {
-        this.giaDoUong = giaDoUong;
-    }
-
-    public void setTrangThai(Boolean trangThai) {
-        this.trangThai = trangThai;
-    }
 }
