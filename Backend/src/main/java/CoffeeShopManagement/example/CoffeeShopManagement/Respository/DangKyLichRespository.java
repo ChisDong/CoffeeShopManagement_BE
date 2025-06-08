@@ -26,5 +26,21 @@ public interface DangKyLichRespository extends JpaRepository<DangKyLich, DangKyL
        JOIN lichlamviec l ON dk.maLlv = l.id
        WHERE dk.maNv = :maNv """, nativeQuery = true)
     Integer getTongGioDangKy(@Param("maNv") String maNv);
+
+    @Query(value = """
+    SELECT 
+        SUM(TIMESTAMPDIFF(MINUTE,
+            STR_TO_DATE(l.THOIGIANBATDAU, '%H:%i'),
+            STR_TO_DATE(l.THOIGIANKETHUC, '%H:%i'))) / 60 AS tong_gio_lam,
+        SUM(TIMESTAMPDIFF(MINUTE,
+            STR_TO_DATE(l.THOIGIANBATDAU, '%H:%i'),
+            STR_TO_DATE(l.THOIGIANKETHUC, '%H:%i'))) / 60 * nv.LUONG AS tong_luong
+    FROM dangky dk
+    JOIN lichlamviec l ON dk.maLlv = l.id
+    JOIN nhanvien nv ON dk.maNv = nv.maNv
+    WHERE dk.maNv = :maNv
+""", nativeQuery = true)
+    Object[] getThongKeGioVaLuong(@Param("maNv") String maNv);
+
 }
 

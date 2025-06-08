@@ -24,59 +24,58 @@ import javax.crypto.spec.SecretKeySpec;
 @Configuration
 @EnableWebSecurity
 public class SercurityConfig {
-    @Autowired
-    private AuthenticationService authenticationService;
+        @Autowired
+        private AuthenticationService authenticationService;
 
-    private final String[] PUBLIC_ENDPOINTS = {"/nhanviens", "/nhanviens/tokens", "/nhanviens/auths", "/khachhangs", "/laytonggiolams/{maNv}", "/dangkylichs", "/laylichcuanhanviens/{maNv}","/laynhanvientronglichs/{maLlv}", "/dangkylichs", "/xoadangkylichs",
-    "/themdouongs", "/suadouongs", "/xoadouongs/{maDoUong}", "/menus", "/taolichs", "/laylichs/bydays/{NgayBD}/{NgayKT}", "/lichs", "/sualichs/{id}", "/xoalichs/{id}"};
-    private final String[] NHANVIEN_ENDPOINTS = {"/nhanvien", "/lichs/bydays"};
-    private final String[] ADMIN_ENDPOINS = {"/nhanvien", "/lichs/bydays"};
+        private final String[] PUBLIC_ENDPOINTS = { "/nhanviens", "/nhanviens/tokens", "/nhanviens/auths",
+                        "/khachhangs", "/laytonggiolams/{maNv}", "/dangkylichs", "/laylichcuanhanviens/{maNv}",
+                        "/laynhanvientronglichs/{maLlv}", "/dangkylichs", "/xoadangkylichs",
+                        "/themdouongs", "/suadouongs", "/xoadouongs/{maDoUong}", "/menus", "/taolichs",
+                        "/laylichs/bydays/{NgayBD}/{NgayKT}", "/lichs", "/sualichs/{id}", "/xoalichs/{id}", "/pings" };
+        private final String[] NHANVIEN_ENDPOINTS = { "/nhanvien", "/lichs/bydays" };
+        private final String[] ADMIN_ENDPOINS = { "/nhanvien", "/lichs/bydays" };
 
-    @Value("${jwt.signerKey}")
-    private String SIGNER_KEY;
+        @Value("${jwt.signerKey}")
+        private String SIGNER_KEY;
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .authorizeHttpRequests(request ->
-                        request
-                                .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
-                                .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS).permitAll()
-                                .requestMatchers(HttpMethod.DELETE, PUBLIC_ENDPOINTS).permitAll()
-                                .requestMatchers(HttpMethod.GET, NHANVIEN_ENDPOINTS).hasRole("EMPLOYEE")
-                                .requestMatchers(HttpMethod.DELETE, ADMIN_ENDPOINS).hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, ADMIN_ENDPOINS).hasRole("ADMIN")
-                                .anyRequest().authenticated()
-                )
-                .csrf(AbstractHttpConfigurer::disable)
-                .oauth2ResourceServer(oauth2 ->
-                        oauth2.jwt(jwt ->
-                                jwt.decoder(jwtDecoder())
-                                        .jwtAuthenticationConverter(jwtAuthenticationConverter())
-                        )
-                );
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+                httpSecurity
+                                .authorizeHttpRequests(request -> request
+                                                .requestMatchers("/pings").permitAll()
+                                                .requestMatchers("/tonggios/**").permitAll()
+                                                .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+                                                .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS).permitAll()
+                                                .requestMatchers(HttpMethod.DELETE, PUBLIC_ENDPOINTS).permitAll()
+                                                .requestMatchers(HttpMethod.GET, NHANVIEN_ENDPOINTS).hasRole("EMPLOYEE")
+                                                .requestMatchers(HttpMethod.DELETE, ADMIN_ENDPOINS).hasRole("ADMIN")
+                                                .requestMatchers(HttpMethod.PUT, ADMIN_ENDPOINS).hasRole("ADMIN")
+                                                .anyRequest().authenticated())
+                                .csrf(AbstractHttpConfigurer::disable)
+                                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(jwtDecoder())
+                                                .jwtAuthenticationConverter(jwtAuthenticationConverter())));
 
-        return httpSecurity.build();
-    }
+                return httpSecurity.build();
+        }
 
-    @Bean
-    JwtDecoder jwtDecoder() {
-        SecretKeySpec secretKeySpec = new SecretKeySpec(SIGNER_KEY.getBytes(), "HS512");
-        return NimbusJwtDecoder
-                .withSecretKey(secretKeySpec)
-                .macAlgorithm(MacAlgorithm.HS512)
-                .build();
-    };
+        @Bean
+        JwtDecoder jwtDecoder() {
+                SecretKeySpec secretKeySpec = new SecretKeySpec(SIGNER_KEY.getBytes(), "HS512");
+                return NimbusJwtDecoder
+                                .withSecretKey(secretKeySpec)
+                                .macAlgorithm(MacAlgorithm.HS512)
+                                .build();
+        };
 
-    @Bean
-    JwtAuthenticationConverter jwtAuthenticationConverter() {
-        JwtGrantedAuthoritiesConverter  jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("role");
-        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+        @Bean
+        JwtAuthenticationConverter jwtAuthenticationConverter() {
+                JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+                jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("role");
+                jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
 
-        JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
-        jwtConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
-        return jwtConverter;
-    }
+                JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
+                jwtConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
+                return jwtConverter;
+        }
 
 }

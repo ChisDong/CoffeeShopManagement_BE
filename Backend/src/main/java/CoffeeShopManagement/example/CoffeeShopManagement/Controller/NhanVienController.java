@@ -2,13 +2,14 @@ package CoffeeShopManagement.example.CoffeeShopManagement.Controller;
 
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.NhanVienCreationRequest;
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.NhanVienResponse;
+import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.ThongKeGioVaLuongResponse;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.NhanVien;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich.Lich;
 import CoffeeShopManagement.example.CoffeeShopManagement.Respository.LichResponsitory;
 import CoffeeShopManagement.example.CoffeeShopManagement.Service.LichService;
 import CoffeeShopManagement.example.CoffeeShopManagement.Service.NhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class NhanVienController {
 
     @Autowired
     private LichResponsitory lichResponsitory;
+
     // 1. Xem danh sách nhân viên
     @GetMapping
     public List<NhanVien> getAllNhanViens() {
@@ -40,10 +42,16 @@ public class NhanVienController {
     }
 
     // 3. Tính tổng giờ làm và lương cơ bản theo giờ làm trong tháng
-    @GetMapping("/{maNv}/tonggio")
-    public double getTongGioLam(
-            @PathVariable String maNv) {
-        return nhanVienService.tinhTongGioLam(maNv);
+    @GetMapping("/tonggios/{maNv}")
+    public ResponseEntity<ThongKeGioVaLuongResponse> thongKeNhanVien(@PathVariable String maNv) {
+        ThongKeGioVaLuongResponse response = nhanVienService.thongKeGioVaLuongResponse(maNv);
+        return ResponseEntity.ok(response);
+
+    }
+
+    @GetMapping("/pings")
+    public String ping() {
+        return "pong";
     }
 
     // 4. Thêm nhân viên

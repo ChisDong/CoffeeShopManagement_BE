@@ -2,9 +2,11 @@ package CoffeeShopManagement.example.CoffeeShopManagement.Service;
 
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.NhanVienCreationRequest;
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.NhanVienResponse;
+import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.ThongKeGioVaLuongResponse;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.KhachHang;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.Lich.Lich;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.NhanVien;
+import CoffeeShopManagement.example.CoffeeShopManagement.Respository.DangKyLichRespository;
 import CoffeeShopManagement.example.CoffeeShopManagement.Respository.NhanVienRespository;
 import CoffeeShopManagement.example.CoffeeShopManagement.Respository.LichResponsitory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.List;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -29,6 +29,8 @@ public class NhanVienService {
     private NhanVienRespository nhanVienRespository;
     @Autowired
     private LichResponsitory lichResponsitory;
+    @Autowired
+    private DangKyLichRespository dangKyLichRespository;
 
     private String generateMaNhanVien(){
         return "NV" + UUID.randomUUID().toString().substring(0, 2).toUpperCase();
@@ -45,6 +47,7 @@ public class NhanVienService {
         nhanVien.setSoCccd(request.getSoCccd());
         nhanVien.setViTriLam(request.getViTriLam());
         nhanVien.setRole(request.getRole());
+        nhanVien.setLuong(request.getLuong());
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         //encode mật khẩu khi tạo để tránh mất mát
         nhanVien.setMatKhau(passwordEncoder.encode(request.getMatKhau()));
@@ -56,7 +59,7 @@ public class NhanVienService {
         return nhanVienRespository.findAll();
     }
 
-    // tinh tổng giờ làm việc của nhân viên
+    // tinh tổng giờ làm việc của nhân viên (khả năng sai)
     public double tinhTongGioLam(String maNv) {
         if (maNv == null || maNv.trim().isEmpty()) {
             throw new IllegalArgumentException("Mã nhân viên không được để trống");
@@ -130,7 +133,8 @@ public class NhanVienService {
         }
         nhanVienRespository.delete(existing);
     }
-    
+
+    // lấy tất cả nhân viên
     public List<NhanVienResponse> getAllNhanVien(){
         List<NhanVienResponse> nhanVienResponseList = new ArrayList<>();
         NhanVienResponse nhanVienResponse = new NhanVienResponse();
@@ -142,6 +146,14 @@ public class NhanVienService {
             nhanVienResponseList.add(nhanVienResponse);
         }
         return nhanVienResponseList;
+    }
+
+    // thống kê giờ làm việc và lương
+    public ThongKeGioVaLuongResponse thongKeGioVaLuongResponse(String maNv){
+        Object[] result = dangKyLichRespository.getThongKeGioVaLuong(maNv);
+        Double tongGio = result[0] != null ? ((Number) result[0]).doubleValue():0.0;
+        Double tongLuong = result[1] !=null ? ((Number) result[1]).doubleValue():0.0;
+        return new ThongKeGioVaLuongResponse(tongGio, tongLuong);
     }
 
 

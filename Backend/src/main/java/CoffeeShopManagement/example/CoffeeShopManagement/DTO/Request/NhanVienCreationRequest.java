@@ -21,4 +21,5 @@ public class NhanVienCreationRequest {
     String matKhau;
     String soDienThoai;
     String role;
+    Double luong;
 }

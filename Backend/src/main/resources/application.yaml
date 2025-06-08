@@ -29,3 +29,7 @@ spring:
 
 jwt:
   signerKey: "bfHUHsKlqkHWujMxhcqkAgQzYmrQ1atDEUQ/q751h+tZ/Q6zfl32svrxukVz787F"
+
+logging:
+  level:
+    org.springframework.security.web.FilterChainProxy: TRACE

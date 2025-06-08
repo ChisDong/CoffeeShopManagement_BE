@@ -31,5 +31,7 @@ public class NhanVien {
     String soDienThoai;
     @Column(name = "ROLE")
     String role;
+    @Column(name = "LUONG")
+    Double luong;
 
 }
