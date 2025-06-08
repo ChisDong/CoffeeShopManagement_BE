@@ -31,7 +31,7 @@ public class SercurityConfig {
                         "/khachhangs", "/laytonggiolams/{maNv}", "/dangkylichs", "/laylichcuanhanviens/{maNv}",
                         "/laynhanvientronglichs/{maLlv}", "/dangkylichs", "/xoadangkylichs",
                         "/themdouongs", "/suadouongs", "/xoadouongs/{maDoUong}", "/menus", "/taolichs",
-                        "/laylichs/bydays/{NgayBD}/{NgayKT}", "/lichs", "/sualichs/{id}", "/xoalichs/{id}", "/pings" };
+                        "/laylichs/bydays/{NgayBD}/{NgayKT}", "/lichs", "/sualichs/{id}", "/xoalichs/{id}", "/nhanviens/pings", "/khachhangs/thongke/{maKhachHang}", "/laychitiethoadons/{maHd}"};
         private final String[] NHANVIEN_ENDPOINTS = { "/nhanvien", "/lichs/bydays" };
         private final String[] ADMIN_ENDPOINS = { "/nhanvien", "/lichs/bydays" };
 
@@ -42,8 +42,8 @@ public class SercurityConfig {
         public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
                 httpSecurity
                                 .authorizeHttpRequests(request -> request
-                                                .requestMatchers("/pings").permitAll()
-                                                .requestMatchers("/tonggios/**").permitAll()
+                                                .requestMatchers("/nhanviens/pings").permitAll()
+                                                .requestMatchers("/nhanviens/tonggios/**").permitAll()
                                                 .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
                                                 .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS).permitAll()
                                                 .requestMatchers(HttpMethod.DELETE, PUBLIC_ENDPOINTS).permitAll()

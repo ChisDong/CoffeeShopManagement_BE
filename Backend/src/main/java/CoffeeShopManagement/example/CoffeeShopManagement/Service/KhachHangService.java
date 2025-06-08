@@ -3,9 +3,12 @@ package CoffeeShopManagement.example.CoffeeShopManagement.Service;
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.KhachHang.KhachHangCreationRequest;
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.KhachHang.KhachHangFindRequest;
 import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Request.KhachHang.KhachHangUpdateRequest;
+import CoffeeShopManagement.example.CoffeeShopManagement.DTO.Response.ThongKeKhachHangResponse;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.HoaDon;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.KhachHang;
+import CoffeeShopManagement.example.CoffeeShopManagement.Respository.HoaDonRespository;
 import CoffeeShopManagement.example.CoffeeShopManagement.Respository.KhachHangRepository;
+import jakarta.persistence.OneToMany;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,9 @@ import java.util.UUID;
 public class KhachHangService {
     @Autowired
     private KhachHangRepository khachHangRepository;
+
+    @Autowired
+    private HoaDonRespository hoaDonRespository;
     public String generateMaKhachHang(){
         return "KH" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
@@ -91,4 +97,17 @@ public class KhachHangService {
         khachHangRepository.delete(existing);
         return existing;
     }
+
+    //thống kê khách hàng
+    public ThongKeKhachHangResponse thongKeKhachHangResponse(String maKhachHang){
+        Object resultRaw = hoaDonRespository.thongKeTheoKhachHang(maKhachHang);
+        Object[] result = (Object[]) resultRaw;
+        int tongHoaDon = result[0] != null ? ((Number) result[0]).intValue() : 0;
+        double tongTien = result[1] != null ? ((Number) result[1]).doubleValue() : 0.0;
+        ThongKeKhachHangResponse thongKeKhachHangResponse = new ThongKeKhachHangResponse();
+        thongKeKhachHangResponse.setTongHoaDon(tongHoaDon);
+        thongKeKhachHangResponse.setTongTien(tongTien);
+        return thongKeKhachHangResponse;
+    }
+
 }

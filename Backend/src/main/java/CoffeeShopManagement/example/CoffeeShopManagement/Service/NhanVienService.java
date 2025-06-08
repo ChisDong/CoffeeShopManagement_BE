@@ -149,13 +149,17 @@ public class NhanVienService {
     }
 
     // thống kê giờ làm việc và lương
-    public ThongKeGioVaLuongResponse thongKeGioVaLuongResponse(String maNv){
-        Object[] result = dangKyLichRespository.getThongKeGioVaLuong(maNv);
-        Double tongGio = result[0] != null ? ((Number) result[0]).doubleValue():0.0;
-        Double tongLuong = result[1] !=null ? ((Number) result[1]).doubleValue():0.0;
-        return new ThongKeGioVaLuongResponse(tongGio, tongLuong);
+    public ThongKeGioVaLuongResponse thongKeGioVaLuongResponse(String maNv) {
+        Object resultRaw = dangKyLichRespository.getThongKeGioVaLuong(maNv);
+        Object[] result = (Object[]) resultRaw;
+
+        Double tongGio = result[0] != null ? ((Number) result[0]).doubleValue() : 0.0;
+        Double tongLuong = result[1] != null ? ((Number) result[1]).doubleValue() : 0.0;
+
+        ThongKeGioVaLuongResponse response = new ThongKeGioVaLuongResponse();
+        response.setTongGioLam(tongGio);
+        response.setTongLuong(tongLuong);
+        return response;
     }
-
-
 
 }

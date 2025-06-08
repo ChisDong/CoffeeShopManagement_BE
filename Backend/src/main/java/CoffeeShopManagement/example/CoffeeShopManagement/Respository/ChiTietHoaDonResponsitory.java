@@ -3,6 +3,8 @@ package CoffeeShopManagement.example.CoffeeShopManagement.Respository;
 import CoffeeShopManagement.example.CoffeeShopManagement.Entity.ChiTietHoaDon.ChiTietHoaDon;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface ChiTietHoaDonResponsitory extends JpaRepository<ChiTietHoaDon, String> {
-    public ChiTietHoaDon findByMaHd(String maHd);
+    List<ChiTietHoaDon> findByMaHd(String maHd);
 }

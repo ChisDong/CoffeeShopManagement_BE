@@ -40,7 +40,6 @@ public interface DangKyLichRespository extends JpaRepository<DangKyLich, DangKyL
     JOIN nhanvien nv ON dk.maNv = nv.maNv
     WHERE dk.maNv = :maNv
 """, nativeQuery = true)
-    Object[] getThongKeGioVaLuong(@Param("maNv") String maNv);
-
+    Object getThongKeGioVaLuong(@Param("maNv") String maNv);
 }
 

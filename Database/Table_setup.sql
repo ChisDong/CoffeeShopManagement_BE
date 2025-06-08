@@ -55,7 +55,7 @@ create TABLE dangky (
 );
 
 // tạo trigger cho bảng
-
+//trigger check số lượng trước khi thêm
 CREATE TRIGGER trg_check_soluong_before_insert
 BEFORE INSERT ON dangky
 FOR EACH ROW
@@ -66,22 +66,20 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không thể đăng ký: ca làm đã đủ người';
     END IF;
 END;
-
-
+//trigger giảm số lượng khi có ai đó đăng ký
 CREATE TRIGGER trg_giam_soluong_after_insert
 AFTER INSERT ON dangky
 FOR EACH ROW
 BEGIN
     UPDATE lichlamviec SET SOLUONG = SOLUONG - 1 WHERE id = NEW.MALLV;
 END;
-
+//trigger tăng số lượng khi có ai đó huỷ lịch
 CREATE TRIGGER trg_tang_soluong_after_delete
 AFTER DELETE ON dangky
 FOR EACH ROW
 BEGIN
     UPDATE lichlamviec SET SOLUONG = SOLUONG + 1 WHERE id = OLD.MALLV;
 END;
-
 
 //không có trong db
 SELECT
@@ -93,7 +91,7 @@ JOIN lichlamviec l ON dk.maLlv = l.id
 WHERE dk.maNv = :maNv
 drop table dangky
 drop table lichlamviec
-select * from nhanvien;
+select * from chitiethoadon;
 ALTER TABLE lichlamviec CHANGE COLUMN MANV NVTAOLICH VARCHAR(100)
 ALTER TABLE lichlamviec CHANGE COLUMN MALLV id VARCHAR(100)
 ALTER TABLE lichlamviec ADD COLUMN SOLUONG INT

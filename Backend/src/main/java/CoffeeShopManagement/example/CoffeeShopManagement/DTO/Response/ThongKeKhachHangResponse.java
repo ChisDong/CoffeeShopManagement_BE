@@ -10,10 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ChiTiettHoaDonResponse {
-    String maDoUong;
-    String tenDoUong;
-    Integer soLuong;
-    Double donGia;
-    Double gia;
+public class ThongKeKhachHangResponse {
+    int tongHoaDon;
+    double tongTien;
 }
