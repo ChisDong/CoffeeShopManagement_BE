@@ -19,7 +19,7 @@ services:
       MYSQL_DATABASE: IS216
       MYSQL_ROOT_HOST: "%" # Cho phép kết nối từ bất kỳ địa chỉ IP nào
     ports:
-      - "3307:3306" # Mở cổng 3306 để truy cập MySQL từ bên ngoài
+      - "3307:3306" # Mở cổng 3307 để truy cập MySQL từ bên ngoài
     volumes:
       - mysql-data:/var/lib/mysql # Lưu trữ dữ liệu MySQL trên volume để giữ nguyên dữ liệu khi container bị xóa
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Thư mục chứa các script khởi tạo cơ sở dữ liệu
