@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.converter.xml.AbstractJaxb2HttpMessageConverter;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -17,12 +18,15 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.crypto.spec.SecretKeySpec;
 
 @Configuration
 @EnableWebSecurity
+@CrossOrigin(origins = "http://localhost:5173")
+
 public class SercurityConfig {
         @Autowired
         private AuthenticationService authenticationService;
@@ -41,7 +45,8 @@ public class SercurityConfig {
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
                 httpSecurity
-                                .authorizeHttpRequests(request -> request
+                        .cors(Customizer.withDefaults()) // <- Thêm dòng này!
+                        .authorizeHttpRequests(request -> request
                                                 .requestMatchers("/nhanviens/pings").permitAll()
                                                 .requestMatchers("/nhanviens/tonggios/**").permitAll()
                                                 .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()

@@ -63,6 +63,7 @@ public class AuthenticationService {
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();
         authenticationResponse.setToken(token);
         authenticationResponse.setAuthenticated(authenticated);
+        authenticationResponse.setRole(nhanVien.get().getRole());
         return authenticationResponse;
     }
 
