@@ -14,6 +14,7 @@ public class DoUongCreationRequest {
      String maDoUong;
      String tenDoUong;
      String loaiDoUong;
+     String hinhAnh; // sửa thêm
      Double giaDoUong;
      Boolean trangThai;
 

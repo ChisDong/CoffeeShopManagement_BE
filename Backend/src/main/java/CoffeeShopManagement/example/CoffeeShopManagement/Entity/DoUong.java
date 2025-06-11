@@ -4,59 +4,30 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "douong")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class DoUong {
     @Id
     @Column(name = "MADOUONG")
-    private String maDoUong;
+     String maDoUong;
     @Column(name = "TENDOUONG")
-    private String tenDoUong;
+     String tenDoUong;
     @Column(name = "LOAIDOUONG")
-    private String loaiDoUong;
+     String loaiDoUong;
     @Column(name = "GIADOUONG")
-    private Double giaDoUong;
+     Double giaDoUong;
     @Column(name = "TRANGTHAI")
-    private Boolean trangThai;
-
-    public String getMaDoUong() {
-        return maDoUong;
-    }
-
-    public String getTenDoUong() {
-        return tenDoUong;
-    }
-
-    public String getLoaiDoUong() {
-        return loaiDoUong;
-    }
-
-    public Double getGiaDoUong() {
-        return giaDoUong;
-    }
-
-    public Boolean getTrangThai() {
-        return trangThai;
-    }
-
-    public void setMaDoUong(String maDoUong) {
-        this.maDoUong = maDoUong;
-    }
-
-    public void setTenDoUong(String tenDoUong) {
-        this.tenDoUong = tenDoUong;
-    }
-
-    public void setLoaiDoUong(String loaiDoUong) {
-        this.loaiDoUong = loaiDoUong;
-    }
-
-    public void setGiaDoUong(Double giaDoUong) {
-        this.giaDoUong = giaDoUong;
-    }
-
-    public void setTrangThai(Boolean trangThai) {
-        this.trangThai = trangThai;
-    }
+    Boolean trangThai;
+    @Column(name = "HINHANH")
+    String hinhAnh;
 }

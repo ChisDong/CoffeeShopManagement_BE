@@ -16,6 +16,7 @@ import java.util.List;
 
 import java.util.ArrayList;
 import java.util.List;
+@CrossOrigin(origins = "http://localhost:3000")
 
 @RestController
 @RequestMapping("/nhanviens")
