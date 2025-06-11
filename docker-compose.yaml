@@ -1,0 +1,28 @@
+# Cách sử dụng:
+# 1. Chạy lệnh `docker-compose up -d` trong terminal để khởi động dịch vụ MySQL.
+# 2. Kiểm tra kết nối đến MySQL bằng cách sử dụng MySQL client hoặc công cụ quản lý cơ sở dữ liệu khác.
+# 3. Đảm bảo rằng ứng dụng đã được cấu hình để kết nối đến MySQL với thông tin đăng nhập đã cung cấp trong `application.yaml`.
+# 4. Để dừng dịch vụ, sử dụng lệnh `docker-compose down`.
+# 5. Để xóa volume và dữ liệu, sử dụng lệnh `docker-compose down -v`.
+# Lưu ý:
+# Mỗi lần chay đổi cấu hình trong `docker-compose.yaml`, cần chạy lại lệnh `docker-compose up -d` để áp dụng các thay đổi.
+
+version: "3.8" # Phiên bản Docker Compose
+
+# Database MySQL sử dụng Docker Compose
+services:
+  mysql:
+    image: mysql:9.3.0-oraclelinux9
+    restart: always # Docker sẽ tự động khởi động lại container nếu nó bị dừng do lỗi
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: IS216
+      MYSQL_ROOT_HOST: "%" # Cho phép kết nối từ bất kỳ địa chỉ IP nào
+    ports:
+      - "3307:3306" # Mở cổng 3307 để truy cập MySQL từ bên ngoài
+    volumes:
+      - mysql-data:/var/lib/mysql # Lưu trữ dữ liệu MySQL trên volume để giữ nguyên dữ liệu khi container bị xóa
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Thư mục chứa các script khởi tạo cơ sở dữ liệu
+volumes: # Định nghĩa volume để lưu trữ dữ liệu MySQL
+  mysql-data: {} # Tên volume sẽ được Docker tạo tự động
+
