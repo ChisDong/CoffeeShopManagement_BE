@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,36 +30,41 @@ public class LichService {
         return lichResponsitory.save(lich);
     }
 
-    public List<LichResponse> getLichByDay(String NgayBD, String NgayKT){
-        List<LichResponse> lichResponseList = new ArrayList<>();
-        LichResponse lichResponse = new LichResponse();
-        for(Lich lich : lichResponsitory.findByNgayBDBetween(NgayBD, NgayKT)){
-            lichResponse.setNgayBD(lich.getNgayBD());
-            lichResponse.setNgayKT(lich.getNgayKT());
-            lichResponse.setThoiGianBD(lich.getThoiGianBD());
-            lichResponse.setThoiGianKT(lich.getThoiGianKT());
-            lichResponse.setSoLuong(lich.getSoLuong());
-            lichResponseList.add(lichResponse);
+    // Phiên bản đã sửa lỗi cho getLichByDay
+    public List<LichResponse> getLichByDay(String NgayBD, String NgayKT) {
+        List<Lich> lichList = lichResponsitory.findByNgayBDBetween(NgayBD, NgayKT);
+
+        if (lichList == null || lichList.isEmpty()) {
+            // Có thể trả về danh sách rỗng hoặc throw exception tùy logic của bạn
+            return new ArrayList<>();
         }
-        if(lichResponseList != null){
-            return lichResponseList;
-        }else{
-            throw new AppExceptionHandler(ErrorCode.CALENDAR_NOT_EXISTED);
-        }
+
+        // Sử dụng stream().map() để tạo đối tượng mới cho mỗi mục trong vòng lặp
+        return lichList.stream()
+                .map(lich -> {
+                    LichResponse lichResponse = new LichResponse(); // <-- Tạo mới đối tượng ở đây
+                    lichResponse.setId(lich.getId());
+                    lichResponse.setNgayBD(lich.getNgayBD());
+                    lichResponse.setNgayKT(lich.getNgayKT());
+                    lichResponse.setThoiGianBD(lich.getThoiGianBD());
+                    lichResponse.setThoiGianKT(lich.getThoiGianKT());
+                    lichResponse.setSoLuong(lich.getSoLuong());
+                    return lichResponse;
+                }).collect(Collectors.toList());
     }
 
     public List<LichResponse>  getAllLich(){
-        List<LichResponse> lichResponseList = new ArrayList<>();
-        LichResponse lichResponse = new LichResponse();
-        for(Lich lich : lichResponsitory.findAll()){
-            lichResponse.setNgayBD(lich.getNgayBD());
-            lichResponse.setNgayKT(lich.getNgayKT());
-            lichResponse.setThoiGianBD(lich.getThoiGianBD());
-            lichResponse.setThoiGianKT(lich.getThoiGianKT());
-            lichResponse.setSoLuong(lich.getSoLuong());
-            lichResponseList.add(lichResponse);
-        }
-        return lichResponseList;
+        return lichResponsitory.findAll().stream()
+                .map(lich -> {
+                    LichResponse lichResponse = new LichResponse();
+                    lichResponse.setId(lich.getId()); // <-- Thêm ID
+                    lichResponse.setNgayBD(lich.getNgayBD());
+                    lichResponse.setNgayKT(lich.getNgayKT());
+                    lichResponse.setThoiGianBD(lich.getThoiGianBD());
+                    lichResponse.setThoiGianKT(lich.getThoiGianKT());
+                    lichResponse.setSoLuong(lich.getSoLuong());
+                    return lichResponse;
+                }).collect(Collectors.toList());
     }
 
     public LichResponse updateRequest(String id, LichCreationRequest request) {

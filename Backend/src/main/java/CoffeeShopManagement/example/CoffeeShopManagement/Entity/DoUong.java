@@ -29,5 +29,5 @@ public class DoUong {
     @Column(name = "TRANGTHAI")
     Boolean trangThai;
     @Column(name = "HINHANH")
-    String hinhAnh;
+    String hinhAnh; //thêm url nơi luu hình ảnh
 }

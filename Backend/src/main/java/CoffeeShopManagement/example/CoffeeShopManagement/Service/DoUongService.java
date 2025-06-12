@@ -24,7 +24,7 @@ public class DoUongService {
         doUong.setLoaiDoUong(request.getLoaiDoUong());
         doUong.setGiaDoUong(request.getGiaDoUong());
         doUong.setTrangThai(request.getTrangThai());
-        doUongRespository.save(doUong);
+        doUong.setHinhAnh(request.getHinhAnh());
         return doUongRespository.save(doUong);
     }
 

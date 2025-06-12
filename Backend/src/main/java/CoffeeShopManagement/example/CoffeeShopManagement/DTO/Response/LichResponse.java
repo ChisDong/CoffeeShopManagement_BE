@@ -9,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class LichResponse {
+    String id;
     String ngayBD;
     String ngayKT;
     String thoiGianBD;
